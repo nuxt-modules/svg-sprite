@@ -1,7 +1,7 @@
 {
   "name": "@nuxtjs/svg-sprite",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "lib/module.js",
   "license": "MIT",
   "scripts": {
     "dev": "nuxt dev demo",
