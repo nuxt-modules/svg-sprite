@@ -1,6 +1,7 @@
 {
   "name": "@nuxtjs/svg-sprite",
   "version": "0.0.0",
+  "description": "Optimized and Easy way to use svg files in Nuxt.js",
   "main": "lib/module.js",
   "license": "MIT",
   "scripts": {
@@ -8,6 +9,9 @@
     "lint": "eslint --ext .js,.vue .",
     "release": "standard-version $* && git push --follow-tags && npm publish"
   },
+  "files": [
+    "lib"
+  ],
   "devDependencies": {
     "cross-env": "^5.2.0",
     "standard-version": "^4.4.0",
