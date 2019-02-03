@@ -15,7 +15,7 @@
   "devDependencies": {
     "cross-env": "^5.2.0",
     "standard-version": "^4.4.0",
-    "nuxt-edge": "^2.4.0-25796174.c83bcb04"
+    "nuxt-edge": "^2.4.0-25811407.6d8da0ed"
   },
   "dependencies": {
     "fs-extra": "^7.0.1",
