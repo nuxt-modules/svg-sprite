@@ -13,11 +13,17 @@
             <svg-icon name="love/Hugs And Kisses" width="150px" height="150px" />
             <svg-icon name="love/Love" width="150px" height="150px" />
         </div>
+        <div class="copyright">
+            photos by <a href="https://lovesvg.com" rel="noopener">lovesvg</a>
+        </div>
     </div>
 </template>
 
 <style>
 body {
     text-align: center;
+}
+.copyright {
+    margin-top: 25px;
 }
 </style>
