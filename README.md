@@ -75,4 +75,4 @@ You can also contribute directly with CodeSandBox: https://codesandbox.io/s/gith
 ## License
 
 [MIT License](./LICENSE)  
-Copyright (c) Nuxt Community.
+Copyright (c) Nuxt Community - Ahad Birang
