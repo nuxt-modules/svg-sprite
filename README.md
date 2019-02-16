@@ -64,6 +64,16 @@ export default {
 }
 ```
 
+## Props
+
+| Prop | Description |
+| --- | --- |
+| name | icon path with format `SPRITE_NAME/ICON_NAME`, `SPRITE_NAME` can be omitted for default sprite  |
+| title | Accessibility title for icon, this props will transform to `<title>` tag inside `<svg>` |
+| desc | Accessibility description for icon, this props will transform to `<desc>` tag inside `<svg>` |
+
+
+
 ## Development
 
 - Clone this repository
