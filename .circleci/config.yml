@@ -9,7 +9,7 @@ jobs:
 
       # Restore cache
       - restore_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-{{ checksum "yarn.lock" }}-v2
 
       # Install dependencies
       - run:
