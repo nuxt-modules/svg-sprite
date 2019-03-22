@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nuxt dev demo",
     "lint": "eslint --ext .js,.vue .",
+    "test": "nuxt-edge build demo --no-lock && jest",
     "release": "standard-version $* && git push --follow-tags && npm publish"
   },
   "files": [
@@ -19,12 +20,15 @@
     "eslint": "^5.15.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jest": "^22.3.0",
+    "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-node": "^8.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "nuxt-edge": "^2.5.0-25860970.be89ea1b",
+    "jest": "^24.5.0",
+    "jest-puppeteer": "^4.1.0",
+    "nuxt-edge": "^3.0.0-25882567.ca1ecf0e",
+    "puppeteer": "^1.13.0",
     "standard-version": "^5.0.1"
   },
   "dependencies": {

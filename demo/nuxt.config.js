@@ -1,6 +1,6 @@
-import path from 'path'
+const path = require('path')
 
-export default {
+module.exports = {
   srcDir: path.resolve(__dirname),
   rootDir: path.resolve(__dirname, '..'),
   head: {
