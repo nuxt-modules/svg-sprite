@@ -18,7 +18,7 @@
     "babel-eslint": "^10.0.1",
     "codecov": "^3.2.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.15.0",
+    "eslint": "^5.15.3",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
@@ -28,13 +28,13 @@
     "eslint-plugin-vue": "^5.2.2",
     "jest": "^24.5.0",
     "jest-puppeteer": "^4.1.0",
-    "nuxt-edge": "^3.0.0-25882567.ca1ecf0e",
+    "nuxt-edge": "^3.0.0-25886174.42eefa0e",
     "puppeteer": "^1.13.0",
-    "standard-version": "^5.0.1"
+    "standard-version": "^5.0.2"
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "consola": "^2.5.6",
+    "consola": "^2.5.7",
     "fs-extra": "^7.0.1",
     "svgo": "^1.2.0"
   }
