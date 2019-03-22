@@ -18,7 +18,7 @@ jobs:
 
       # Keep cache
       - save_cache:
-          key: yarn-{{ checksum "yarn.lock" }}
+          key: yarn-{{ checksum "yarn.lock" }}-v2
           paths:
             - "node_modules"
 
