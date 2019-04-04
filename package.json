@@ -16,26 +16,26 @@
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
     "babel-eslint": "^10.0.1",
-    "codecov": "^3.2.0",
+    "codecov": "^3.3.0",
     "cross-env": "^5.2.0",
-    "eslint": "^5.15.3",
+    "eslint": "^5.16.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.4.1",
     "eslint-plugin-node": "^8.0.1",
-    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-vue": "^5.2.2",
-    "jest": "^24.5.0",
+    "jest": "^24.7.1",
     "jest-puppeteer": "^4.1.0",
     "nuxt-edge": "^3.0.0-25886174.42eefa0e",
-    "puppeteer": "^1.13.0",
+    "puppeteer": "^1.14.0",
     "standard-version": "^5.0.2"
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "consola": "^2.5.7",
+    "consola": "^2.5.8",
     "fs-extra": "^7.0.1",
-    "svgo": "^1.2.0"
+    "svgo": "^1.2.1"
   }
 }
