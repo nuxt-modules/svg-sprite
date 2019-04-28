@@ -1,6 +1,6 @@
 # SVG Sprite Module
 
-[![npm (scoped with tag)](https://img.shields.io/npm/v/@nuxtjs/svg-sprite/latest.svg?style=flat-square)](https://npmjs.com/package/nuxt-svg-loader)
+[![npm (scoped with tag)](https://img.shields.io/npm/v/@nuxtjs/svg-sprite/latest.svg?style=flat-square)](https://npmjs.com/package/@nuxtjs/svg-sprite)
 [![npm](https://img.shields.io/npm/dt/@nuxtjs/svg-sprite.svg?style=flat-square)](https://npmjs.com/package/@nuxtjs/svg-sprite)
 
 > Optimized and Easy way to use SVG files in Nuxt.js
