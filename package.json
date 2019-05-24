@@ -35,7 +35,7 @@
   "dependencies": {
     "chalk": "^2.4.2",
     "consola": "^2.6.0",
-    "fs-extra": "^7.0.1",
+    "fs-extra": "^8.0.1",
     "svgo": "^1.2.2"
   }
 }
