@@ -15,7 +15,7 @@
   ],
   "devDependencies": {
     "@nuxtjs/eslint-config": "^0.0.1",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
     "codecov": "^3.5.0",
     "cross-env": "^5.2.0",
     "eslint": "^5.16.0",
@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "consola": "^2.7.1",
+    "consola": "^2.9.0",
     "fs-extra": "^8.0.1",
     "svgo": "^1.2.2"
   }
