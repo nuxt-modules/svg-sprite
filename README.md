@@ -25,7 +25,10 @@ Add `@nuxtjs/svg-sprite` to modules section of `nuxt.config.js`:
 {
   modules: [
     '@nuxtjs/svg-sprite',
- ]
+  ],
+  svgSprite: {
+    // manipulate module options
+  }
 }
 ```
 
@@ -45,13 +48,14 @@ To create different sprites, create custom directory inside `~/assets/sprite/svg
 
 Module default options:
 
-```js
-{
-  input: '~/assets/sprite/svg',
-  output: '~/assets/sprite/gen',
-  defaultSprite: 'icons'
-}
-```
+
+| Option | Default | Description |
+| ------ | ------- | ----------- |
+| input | `~/assets/sprite/svg` | Directory of original svg files |
+| output | `~/assets/sprite/gen` | Directory to store generated sprites |
+| defaultSprite | `icons` | Name of default sprite (default sprite consist of all svgs that place directly inside `input` directory) |
+| elementClass | `icon` | global class of all `<svg-icon>` instances |
+| spriteClassPrefix | `sprite-` | Prefix of sprite specific classes |
 
 You can update them with the `svgSprite` option in `nuxt.config.js`:
 
