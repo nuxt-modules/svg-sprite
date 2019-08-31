@@ -1,6 +1,22 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.3.0](https://github.com/nuxt-community/svg-sprite-module/compare/v0.2.1...v0.3.0) (2019-08-31)
+
+
+### Bug Fixes
+
+* remove url-loader && exclude output folder from svg loaders ([30ff18a](https://github.com/nuxt-community/svg-sprite-module/commit/30ff18a))
+
+
+### Features
+
+* add viewBox prop to plugin ([#27](https://github.com/nuxt-community/svg-sprite-module/issues/27)) ([5210218](https://github.com/nuxt-community/svg-sprite-module/commit/5210218))
+* added viewBox prop to module ([7706e38](https://github.com/nuxt-community/svg-sprite-module/commit/7706e38))
+* define global and sprite specific class ([c1c1711](https://github.com/nuxt-community/svg-sprite-module/commit/c1c1711))
+
+
 
 ## [0.2.1](https://github.com/nuxt-community/svg-sprite-module/compare/v0.2.0...v0.2.1) (2019-05-26)
 
