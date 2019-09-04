@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/nuxt-community/svg-sprite-module/compare/v0.3.0...v0.3.1) (2019-09-02)
+
+
+### Bug Fixes
+
+* move class outside of attrs ([#79](https://github.com/nuxt-community/svg-sprite-module/issues/79)) ([103d7ce](https://github.com/nuxt-community/svg-sprite-module/commit/103d7ce))
+
+
+
 ## [0.3.0](https://github.com/nuxt-community/svg-sprite-module/compare/v0.2.1...v0.3.0) (2019-08-31)
 
 
