@@ -9,6 +9,10 @@ Sprites help increase speed, maintain a consistent development workflow, and mak
 
 **Demo**: https://codesandbox.io/s/github/nuxt-community/svg-sprite-module/
 
+:warning: **NOTE**: SVG Sprites does not work on IE, if you wish to support IE you could use [svg4everybody](https://github.com/jonathantneal/svg4everybody). Take a look at [this issue](https://github.com/nuxt-community/svg-sprite-module/issues/42#issuecomment-516056532) to see how.  
+
+:rainbow: **NOTE**: If you wish to load single SVG icon and you don't want to create sprites, use [Nuxt SVG Module](https://github.com/nuxt-community/svg-module). SVG module for Nuxt.js, allows you to import .svg files in multiple ways depending on the resource query you provide. 
+
 ## Installation
 
 ```bash

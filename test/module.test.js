@@ -52,3 +52,22 @@ describe('Render module', () => {
     }
   })
 })
+
+describe('Inline Definitions', () => {
+  beforeEach(async () => {
+    await page.goto(url('/empty-defs'))
+  })
+
+  test('<defs> should not have any content', async () => {
+    const spritePath = await page.evaluate(() => {
+      const element = document.querySelector('.add-icon use')
+      return element.getAttribute('xlink:href')
+    })
+
+    await page.goto(url(spritePath))
+
+    const content = await page.content()
+
+    expect(content).toMatch(/<defs>[^\w0-9]*<\/defs>/)
+  })
+})
