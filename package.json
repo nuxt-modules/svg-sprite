@@ -18,7 +18,7 @@
     "babel-eslint": "^10.0.3",
     "codecov": "^3.5.0",
     "cross-env": "^5.2.1",
-    "eslint": "^6.3.0",
+    "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^22.17.0",
@@ -29,7 +29,7 @@
     "jest": "^24.9.0",
     "jest-puppeteer": "^4.3.0",
     "nuxt-edge": "^3.0.0-25886174.42eefa0e",
-    "puppeteer": "^1.19.0",
+    "puppeteer": "^1.20.0",
     "standard-version": "^7.0.0"
   },
   "dependencies": {
