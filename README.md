@@ -60,6 +60,7 @@ Module default options:
 | defaultSprite | `icons` | Name of default sprite (default sprite consist of all svgs that place directly inside `input` directory) |
 | elementClass | `icon` | global class of all `<svg-icon>` instances |
 | spriteClassPrefix | `sprite-` | Prefix of sprite specific classes |
+| svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md)
 
 You can update them with the `svgSprite` option in `nuxt.config.js`:
 
