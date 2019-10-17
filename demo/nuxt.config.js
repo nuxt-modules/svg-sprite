@@ -13,5 +13,8 @@ module.exports = {
 
   modules: [
     '../lib/module.js'
-  ]
+  ],
+  svgSprite: {
+
+  }
 }

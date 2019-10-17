@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.1](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.0...v0.4.1) (2019-09-26)
+
+
+### Bug Fixes
+
+* Do not register hooks on start-mode ([03ec139](https://github.com/nuxt-community/svg-sprite-module/commit/03ec139))
+
+### Features
+
+* Introduce svgConfig option ([8016593](https://github.com/nuxt-community/svg-sprite-module/commit/8016593))
+
 ## [0.4.0](https://github.com/nuxt-community/svg-sprite-module/compare/v0.3.1...v0.4.0) (2019-09-04)
 
 
