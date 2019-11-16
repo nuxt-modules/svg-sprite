@@ -73,6 +73,7 @@ export default {
     align-items: center;
     flex-direction: column;
     height: 80px;
+    width: 120px;
 }
 .icon-box-svg {
     width: 50px;
@@ -83,6 +84,7 @@ export default {
 }
 .content {
     display: flex;
+    flex-wrap: wrap;
 }
 .name {
     font-size: 0.7rem;
