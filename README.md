@@ -48,6 +48,9 @@ To create different sprites, create custom directory inside `~/assets/sprite/svg
 <svg-icon name="my-sprite/my-image" />
 ```
 
+Module create a page that list all of icons for you, by default you can see this page in `/_icons` path.  
+**Note:** This page creates in `dev` mode, So you can't see it in production.
+
 ## Options
 
 Module default options:
@@ -61,7 +64,8 @@ Module default options:
 | elementClass | `icon` | global class of all `<svg-icon>` instances |
 | spriteClassPrefix | `sprite-` | Prefix of sprite specific classes |
 | publicPath | `null` | Specifies a custom public path for the sprites |
-| svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md)
+| iconsPath | `_icons` | Custom path fro icons list page |
+| svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md) |
 
 You can update them with the `svgSprite` option in `nuxt.config.js`:
 
