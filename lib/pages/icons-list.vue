@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import sprites from '~/assets/sprite/gen/sprites.json'
+import sprites from '<%= options._output %>/sprites.json'
 
 export default {
   data () {
