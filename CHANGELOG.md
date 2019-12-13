@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.7](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.6...v0.4.7) (2019-12-13)
+
+
+### Bug Fixes
+
+* **module:** dev template generation bug ([#121](https://github.com/nuxt-community/svg-sprite-module/issues/121)) ([57dc740](https://github.com/nuxt-community/svg-sprite-module/commit/57dc740a9f6ef3f90673232b0aea8a5e2dde9b33))
+
 ### [0.4.6](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.5...v0.4.6) (2019-12-06)
 
 
