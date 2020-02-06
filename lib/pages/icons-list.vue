@@ -13,21 +13,21 @@
         >
           <div class="icon-svg">
             <svg-icon
-              :name="sprite.name + '/' + symbol"
-              :title="sprite.name + '/' + symbol"
+              :name="symbol.path"
+              :title="symbol.path"
               class="icon"
               width="30px"
               height="30px"
             />
           </div>
           <code class="name">
-            {{ symbol }}
+            {{ symbol.name }}
           </code>
           <input
             class="name"
             type="text"
             readonly
-            :value="sprite.name + '/' + symbol"
+            :value="symbol.path"
             @click="copy"
           >
         </div>
@@ -41,13 +41,19 @@ import sprites from '<%= options._output %>/sprites.json'
 
 export default {
   data () {
+    const defaultSprite = '<%= options.defaultSprite %>'
     return {
-      sprites
-    }
-  },
-  head () {
-    return {
-      title: 'Icons list - nuxt-svg-sprite'
+      defaultSprite,
+      sprites: sprites.map((sprite) => {
+        const namespace = sprite.name !== defaultSprite ? `${sprite.name}/` : ''
+        return {
+          name: sprite.name,
+          symbols: sprite.symbols.map(symbol => ({
+            name: symbol,
+            path: `${namespace}${symbol}`
+          }))
+        }
+      })
     }
   },
   methods: {
@@ -56,6 +62,11 @@ export default {
       el.select()
       el.setSelectionRange(0, 99999)
       document.execCommand('copy')
+    }
+  },
+  head () {
+    return {
+      title: 'Icons list - nuxt-svg-sprite'
     }
   }
 }
