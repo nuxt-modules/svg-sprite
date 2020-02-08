@@ -64,7 +64,7 @@ Module default options:
 | elementClass | `icon` | global class of all `<svg-icon>` instances |
 | spriteClassPrefix | `sprite-` | Prefix of sprite specific classes |
 | publicPath | `null` | Specifies a custom public path for the sprites |
-| iconsPath | `_icons` | Custom path fro icons list page |
+| iconsPath | `_icons` | Custom path for icons list page |
 | svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md) |
 
 You can update them with the `svgSprite` option in `nuxt.config.js`:
