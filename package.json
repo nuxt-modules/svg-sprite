@@ -4,6 +4,14 @@
   "description": "Optimized and Easy way to use svg files in Nuxt.js",
   "main": "lib/module.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nuxt-community/svg-sprite-module.git"
+  },
+  "homepage": "https://github.com/nuxt-community/svg-sprite-module#readme",
+  "bugs": {
+    "url": "https://github.com/nuxt-community/svg-sprite-module/issues"
+  },
   "scripts": {
     "dev": "nuxt dev demo",
     "lint": "eslint --ext .js,.vue .",
