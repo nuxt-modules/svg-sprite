@@ -23,7 +23,7 @@
   ],
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.2",
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "codecov": "^3.6.5",
     "cross-env": "^7.0.0",
     "eslint": "^6.8.0",
@@ -36,7 +36,7 @@
     "eslint-plugin-vue": "^6.2.1",
     "jest": "^25.1.0",
     "jest-puppeteer": "^4.4.0",
-    "nuxt-edge": "^3.0.0-25886174.42eefa0e",
+    "nuxt-edge": "^3.0.0-26380816.ee2cceb9",
     "puppeteer": "^2.1.1",
     "standard-version": "^7.1.0"
   },
