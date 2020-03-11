@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.10](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.9...v0.4.10) (2020-03-11)
+
+
+### Bug Fixes
+
+* ensure to find correct path of sprites ([462b8a4](https://github.com/nuxt-community/svg-sprite-module/commit/462b8a41bf14ce7405e8d5769ffa42d8dfc6a7fb))
+
 ### [0.4.9](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.8...v0.4.9) (2020-02-08)
 
 
