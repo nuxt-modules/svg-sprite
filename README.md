@@ -66,6 +66,9 @@ Module default options:
 | publicPath | `null` | Specifies a custom public path for the sprites |
 | iconsPath | `_icons` | Custom path for icons list page (In order to disable this page, pass `false` or `null` to this option) |
 | svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md) |
+| generateStyles | `false` | Whether generate styles or not. |
+| iconStylesPath | `~/assets/css/icons.css` | Path relative to project root where styles will generated. |
+| iconStyleTemplate | `function` | A callback function that is used to generate the style for each icon. The callback function receives two parameters : **symbol** and **options**. |
 
 You can update them with the `svgSprite` option in `nuxt.config.js`:
 
