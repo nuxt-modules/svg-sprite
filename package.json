@@ -37,7 +37,7 @@
     "jest": "^25.2.4",
     "jest-puppeteer": "^4.4.0",
     "nuxt-edge": "^3.0.0-26429774.292b23db",
-    "puppeteer": "^2.1.1",
+    "puppeteer": "^3.1.0",
     "standard-version": "^7.1.0"
   },
   "dependencies": {
