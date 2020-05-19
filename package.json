@@ -34,7 +34,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-vue": "^6.2.2",
-    "jest": "^25.2.4",
+    "jest": "^26.0.1",
     "jest-puppeteer": "^4.4.0",
     "nuxt-edge": "^3.0.0-26429774.292b23db",
     "puppeteer": "^2.1.1",
