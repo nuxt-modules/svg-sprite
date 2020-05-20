@@ -22,7 +22,7 @@
     "lib"
   ],
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^2.0.2",
+    "@nuxtjs/eslint-config": "^3.0.0",
     "babel-eslint": "^10.1.0",
     "codecov": "^3.6.5",
     "cross-env": "^7.0.2",
