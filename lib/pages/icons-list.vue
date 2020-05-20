@@ -8,7 +8,7 @@
       <div class="content">
         <div
           v-for="symbol in sprite.symbols"
-          :key="symbol"
+          :key="symbol.path"
           class="icon-box"
         >
           <div class="icon-svg">
