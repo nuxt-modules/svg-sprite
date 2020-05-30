@@ -1,4 +1,4 @@
-const { Nuxt } = require('nuxt-edge')
+const { Nuxt } = require('nuxt')
 const config = require('../demo/nuxt.config')
 const url = path => `http://localhost:3000${path}`
 
