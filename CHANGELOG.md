@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.4.11](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.10...v0.4.11) (2020-06-24)
+
+
+### Bug Fixes
+
+* Avoid using non-primitive value as key ([2cd503c](https://github.com/nuxt-community/svg-sprite-module/commit/2cd503cc6586e87e6897ec0adde2a331eedc03d6))
+
 ### [0.4.10](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.9...v0.4.10) (2020-03-11)
 
 
