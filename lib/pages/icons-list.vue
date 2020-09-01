@@ -37,15 +37,13 @@
 </template>
 
 <script>
-import sprites from '<%= options._output %>/sprites.json'
+import sprites from '~svgsprite/sprites.json'
 
 export default {
   data () {
-    const defaultSprite = '<%= options.defaultSprite %>'
     return {
-      defaultSprite,
       sprites: sprites.map((sprite) => {
-        const namespace = sprite.name !== defaultSprite ? `${sprite.name}/` : ''
+        const namespace = sprite.defaultSprite ? '' : `${sprite.name}/`
         return {
           name: sprite.name,
           symbols: sprite.symbols.map(symbol => ({
