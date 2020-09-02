@@ -35,7 +35,7 @@ describe('Render module', () => {
   test('all icon should be rendered and have width/height greater than zero', async () => {
     for (const href of hrefs) {
       const box = await page.evaluate((href) => {
-        const elements = Array.from(document.querySelectorAll(`use`))
+        const elements = Array.from(document.querySelectorAll('use'))
           .filter(el => el.getAttribute('xlink:href') === href)
         if (elements.length === 0) {
           return null
