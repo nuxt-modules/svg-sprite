@@ -102,6 +102,7 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     background: #f8f8f8;
+    color: #000;
     direction: ltr;
     text-align: center;
     border: none;
