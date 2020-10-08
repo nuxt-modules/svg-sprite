@@ -19,7 +19,8 @@
     "release": "standard-version $* && git push --follow-tags && npm publish"
   },
   "files": [
-    "lib"
+    "lib",
+    "stories"
   ],
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
