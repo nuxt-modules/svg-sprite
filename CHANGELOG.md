@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.12...v0.5.0) (2020-10-08)
+
+
+### Features
+
+* **storybook:** improve list page & support storybook ([db3e719](https://github.com/nuxt-community/svg-sprite-module/commit/db3e719a9814a89b00ed1bf14dbf13f83d31ecaa))
+
+
+### Bug Fixes
+
+* **icons-page:** add color for icon name ([#194](https://github.com/nuxt-community/svg-sprite-module/issues/194)) ([e514d5f](https://github.com/nuxt-community/svg-sprite-module/commit/e514d5f44827ec9302609e6b114bf49a995cab69))
+
 ### [0.4.12](https://github.com/nuxt-community/svg-sprite-module/compare/v0.4.11...v0.4.12) (2020-09-02)
 
 
