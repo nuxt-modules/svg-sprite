@@ -24,7 +24,7 @@
   ],
   "devDependencies": {
     "@babel/preset-env": "^7.12.1",
-    "@nuxtjs/eslint-config": "^3.1.0",
+    "@nuxtjs/eslint-config": "^4.0.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.5.2",
     "codecov": "^3.8.0",
