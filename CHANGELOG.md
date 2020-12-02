@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.5.2](https://github.com/nuxt-community/svg-sprite-module/compare/v0.5.1...v0.5.2) (2020-12-02)
+
+
+### Bug Fixes
+
+* use empty layout for icons page ([#219](https://github.com/nuxt-community/svg-sprite-module/issues/219)) ([9b3348a](https://github.com/nuxt-community/svg-sprite-module/commit/9b3348a773ee06b8dd03bfa631cd5434fb505958))
+
 ### [0.5.1](https://github.com/nuxt-community/svg-sprite-module/compare/v0.5.0...v0.5.1) (2020-10-30)
 
 
