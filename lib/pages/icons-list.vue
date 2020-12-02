@@ -46,6 +46,7 @@
 import sprites from '~svgsprite/sprites.json'
 
 export default {
+  layout: 'svg-sprite',
   props: {
     size: {
       type: Number,
