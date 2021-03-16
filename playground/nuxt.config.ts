@@ -7,15 +7,12 @@ export default {
     ]
   },
   buildModules: [
-    '@nuxt/typescript-build',
-    // 'nuxt-vite'
+    '@nuxt/typescript-build'
   ],
   modules: [
     '../src/module.ts'
   ],
   svgSprite: {
 
-  },
-  vite: {
   }
 }

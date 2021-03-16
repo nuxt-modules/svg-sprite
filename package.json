@@ -13,18 +13,12 @@
   "scripts": {
     "build": "siroc build && mkdist --src src/runtime --dist dist/runtime",
     "dev": "yarn nuxt playground",
-    "docs:build": "cd docs && nuxt generate",
-    "docs:dev": "yarn nuxt dev docs",
     "lint": "eslint --ext .ts --ext .vue .",
     "prepublishOnly": "yarn build",
     "release": "yarn test && standard-version && git push --follow-tags && npm publish",
-    "test": "true",
-    "test2": "yarn lint && yarn test:unit && yarn test:e2e",
-    "test:e2e": "jest test/e2e --forceExit",
-    "test:unit": "jest test/unit --forceExit"
+    "test": "yarn lint && yarn jest"
   },
   "dependencies": {
-    "@nuxtjs/eslint-config": "^6.0.0",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.1",
     "consola": "^2.15.3",
@@ -35,6 +29,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.12.16",
     "@babel/preset-typescript": "latest",
+    "@nuxtjs/eslint-config": "^6.0.0",
     "@nuxt/test-utils": "^0.2.0",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
@@ -43,6 +38,7 @@
     "@types/jest": "latest",
     "@vue/test-utils": "latest",
     "babel-eslint": "^10.1.0",
+    "codecov": "^3.8.1",
     "eslint": "^7.22.0",
     "jest": "latest",
     "mkdist": "latest",
