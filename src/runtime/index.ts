@@ -1,1 +1,1 @@
-export { default as default } from './svg-sprite'
+export * from './svg-sprite'

@@ -52,7 +52,7 @@ function inlineDefs (document, params) {
     }
 
     for (const key in uses[i].attrs) {
-      if (uses[i].attrs.hasOwnProperty(key) && key !== 'x' && key !== 'y' && key !== 'xlink:href' && key !== 'href') {
+      if (Object.prototype.hasOwnProperty.call(uses[i].attrs, key) && key !== 'x' && key !== 'y' && key !== 'xlink:href' && key !== 'href') {
         def.addAttr(uses[i].attrs[key])
       }
     }
@@ -78,7 +78,7 @@ function inlineDefs (document, params) {
 
   if (params.onlyUnique === false) {
     for (const element in useCount) {
-      if (useCount.hasOwnProperty(element) && useCount[element] > 1) {
+      if (Object.prototype.hasOwnProperty.call(useCount, element) && useCount[element] > 1) {
         const tags = document.querySelectorAll(element)
         for (let j = 0; j < tags.length; j++) {
           tags[j].removeAttr('id')
@@ -118,7 +118,7 @@ function _countUses (elements) {
     }
     const href = hrefItem.value
 
-    if (result.hasOwnProperty(href)) {
+    if (Object.prototype.hasOwnProperty.call(result, href)) {
       result[href]++
     } else {
       result[href] = 1
