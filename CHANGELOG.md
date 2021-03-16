@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-beta.1](https://github.com/nuxt-community/svg-sprite-module/compare/v0.5.2...v1.0.0-beta.1) (2021-03-16)
+
+
+### Features
+
+* typescript refactor ([#235](https://github.com/nuxt-community/svg-sprite-module/issues/235)) ([854c2a5](https://github.com/nuxt-community/svg-sprite-module/commit/854c2a54832b72f5d35218d11be856dd4a412ea1))
+
 ### [0.5.2](https://github.com/nuxt-community/svg-sprite-module/compare/v0.5.1...v0.5.2) (2020-12-02)
 
 
