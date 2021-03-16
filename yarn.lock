@@ -780,7 +780,7 @@
     "@babel/helper-create-regexp-features-plugin" "^7.12.13"
     "@babel/helper-plugin-utils" "^7.12.13"
 
-"@babel/preset-env@^7.12.16", "@babel/preset-env@^7.13.10":
+"@babel/preset-env@^7.13.10":
   version "7.13.10"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.13.10.tgz#b5cde31d5fe77ab2a6ab3d453b59041a1b3a5252"
   integrity sha512-nOsTScuoRghRtUsRr/c69d042ysfPHcu+KOB4A9aAO9eJYqrkat+LF8G1yp1HD18QiwixT2CisZTr/0b3YZPXQ==
@@ -8180,7 +8180,7 @@ num2fraction@^1.2.2:
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4=
 
-nuxt-edge@^2.16.0-26929477.f08f4efc:
+nuxt-edge@^2.16.0-26930917.f08f4efc:
   version "2.16.0-26930917.f08f4efc"
   resolved "https://registry.yarnpkg.com/nuxt-edge/-/nuxt-edge-2.16.0-26930917.f08f4efc.tgz#f4f6183190b610da3872ef3738842cf50222a2e9"
   integrity sha512-CoieLydhiLWMsW14Bk5dcNJUbWA3fDK/4qbQnr6xhmH12SaAs0k5as+yS+x33dT3/uiwKWhFwq/P/n7V73sLSw==
