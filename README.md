@@ -23,11 +23,11 @@ npm i @nuxtjs/svg-sprite
 
 ## Usage
 
-Add `@nuxtjs/svg-sprite` to modules section of `nuxt.config.js`:
+Add `@nuxtjs/svg-sprite` to buildModules section of `nuxt.config.js`:
 
 ```js
 {
-  modules: [
+  buildModules: [
     '@nuxtjs/svg-sprite',
   ],
   svgSprite: {
@@ -71,7 +71,7 @@ You can update them with the `svgSprite` option in `nuxt.config.js`:
 
 ```js
 export default {
-  modules: ['@nuxtjs/svg-sprite'],
+  buildModules: ['@nuxtjs/svg-sprite'],
   svgSprite: {
     input: '~/assets/svg/'
   }
@@ -88,8 +88,8 @@ export default {
 
 ## Integrations
 ### Storybook
-If you are fan of storybook this might be interesting for you, This module provides a story to list and search available icons of your project. You can see stories under `stories` directory. 
-If you are using [`@nuxtjs/storybook`](https://storybook.nuxtjs.org) you can see the SvgSprites stories under `Modules` section in your storybook. By default Svg Sprites story will shows in your storybook, you disable/hide the story using [Storybook's `modules` option](https://storybook.nuxtjs.org/options#modules)
+This module provides a story to list and search available icons of your project. You can see stories under `stories` directory. 
+If you are using [`@nuxtjs/storybook`](https://storybook.nuxtjs.org) you can see the SvgSprites stories under `Modules` section in your storybook. Sprites will show in your Storybook, unless you disable/hide the story using [Storybook's `modules` option](https://storybook.nuxtjs.org/options#modules)
 
 ## Development
 
