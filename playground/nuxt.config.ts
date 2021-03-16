@@ -1,8 +1,4 @@
-const path = require('path')
-
-module.exports = {
-  srcDir: path.resolve(__dirname),
-  rootDir: path.resolve(__dirname, '..'),
+export default {
   head: {
     title: 'Nuxt.js SVG Sprite Module',
     meta: [
@@ -10,11 +6,16 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ]
   },
-
+  buildModules: [
+    '@nuxt/typescript-build',
+    // 'nuxt-vite'
+  ],
   modules: [
-    '../lib/module.js'
+    '../src/module.ts'
   ],
   svgSprite: {
 
+  },
+  vite: {
   }
 }

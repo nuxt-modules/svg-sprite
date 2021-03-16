@@ -1,11 +1,9 @@
-import path from 'path'
-import consola from 'consola'
+import path, { join } from 'path'
 import { mkdirp, writeFile } from 'fs-extra'
-import chokidar from 'chokidar'
-import { generateSprite, invalidateIcon, invalidateSprite, addIcon } from './utils'
 import Svg from './svg'
+import { pkg } from './utils'
+import Watcher from './watcher'
 
-const logger = consola.withScope('@nuxtjs/svg-sprite')
 const DEFAULTS = {
   input: '~/assets/sprite/svg',
   output: '~/assets/sprite/gen',
@@ -19,7 +17,7 @@ const DEFAULTS = {
 
 let svgManager
 
-export default async function module (moduleOptions) {
+async function SVGSpriteModule (moduleOptions) {
   const { nuxt } = this
   const options = {
     ...DEFAULTS,
@@ -40,18 +38,18 @@ export default async function module (moduleOptions) {
 
   // Register plugin
   this.addPlugin({
-    src: path.resolve(__dirname, 'plugin.js'),
+    src: path.resolve(__dirname, 'runtime/plugin.js'),
     fileName: 'nuxt-svg-sprite.js',
     options
   })
 
   if (this.nuxt.options.dev && options.iconsPath) {
     // add layout
-    const layout = path.resolve(__dirname, 'layouts', 'svg-sprite.vue')
+    const layout = path.resolve(__dirname, 'runtime', 'layouts', 'svg-sprite.vue')
     this.addLayout(layout, 'svg-sprite')
 
     // register page
-    const componentPath = path.resolve(__dirname, 'pages', 'icons-list.vue')
+    const componentPath = path.resolve(__dirname, 'runtime', 'components', 'icons-list.vue')
     this.extendRoutes(function svgModuleExtendRoutes (routes) {
       routes.unshift({
         name: 'icons-list',
@@ -69,41 +67,39 @@ export default async function module (moduleOptions) {
     return
   }
 
-  const config = typeof options.svgoConfig === 'function'
-    ? options.svgoConfig()
-    : options.svgoConfig
-  svgManager = new Svg(config)
+  svgManager = new Svg(options)
+  svgManager.hook('svg-sprite:update', (sprites) => {
+    options.sprites = Object.keys(sprites)
+  })
 
-  await setupHooks.call(this, options)
+  if (nuxt.options.dev) {
+    nuxt.options.build.watch.push(
+      path.resolve(join(options.output, 'sprites.json'))
+    )
+    nuxt.hook('build:done', () => {
+      options._filesWatcher = new Watcher(svgManager)
+    })
+
+    nuxt.hook('close', () => {
+      if (options._filesWatcher) {
+        options._filesWatcher.close()
+      }
+    })
+  }
+
+  await init(options)
+
+  await svgManager.generateSprites()
 
   this.nuxt.hook('storybook:config', ({ stories }) => {
-    stories.push('@nuxtjs/svg-sprite/stories/*.stories.js')
+    stories.push('@nuxtjs/svg-sprite/dist/runtime/stories/*.stories.js')
   })
 
   // alias output dir
   nuxt.options.alias['~svgsprite'] = options.output
-}
-
-function watchFiles (options) {
-  const filesWatcher = options._filesWatcher = chokidar.watch(options.input, {
-    ignoreInitial: true
-  })
-
-  if (filesWatcher) {
-    logger.info(`Watching ${options._input} for new icons`)
-
-    // Watch for new icons
-    filesWatcher.on('add', file => addIcon(svgManager, file, options))
-
-    // Keep eye on current icons
-    filesWatcher.on('change', file => addIcon(svgManager, file, options))
-
-    // Pray for lost icon
-    filesWatcher.on('unlink', file => invalidateIcon(svgManager, file, options))
-
-    // Pray for lost directory
-    filesWatcher.on('unlinkDir', file => invalidateSprite(svgManager, file, options))
-  }
+  // Transpile and alias runtime
+  const runtimeDir = path.resolve(__dirname, 'runtime')
+  nuxt.options.alias['~svg-sprite-runtime'] = runtimeDir
 }
 
 async function init (options) {
@@ -113,27 +109,6 @@ async function init (options) {
 
   // Ignore output folder contents
   await writeFile(path.join(options.output, '.gitignore'), '*')
-}
-
-function setupHooks (options) {
-  this.nuxt.hook('build:before', async () => {
-    await init.call(this, options)
-
-    await generateSprite(svgManager, options)
-  })
-
-  this.nuxt.hook('build:done', () => {
-    if (this.nuxt.options.dev) {
-      watchFiles.call(this, options)
-    }
-  })
-
-  this.nuxt.hook('close', () => {
-    if (options._filesWatcher) {
-      options._filesWatcher.close()
-      delete options._filesWatcher
-    }
-  })
 }
 
 function extendBuild (config, options) {
@@ -146,7 +121,7 @@ function extendBuild (config, options) {
     }
   })
 
-  const fileLoaderOptions = {}
+  const fileLoaderOptions: any = {}
   if (options.publicPath) {
     fileLoaderOptions.publicPath = options.publicPath
   }
@@ -163,3 +138,7 @@ function extendBuild (config, options) {
     ]
   })
 }
+
+(SVGSpriteModule as any).meta = pkg
+
+export default SVGSpriteModule
