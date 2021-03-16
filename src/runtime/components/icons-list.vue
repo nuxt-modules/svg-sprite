@@ -72,6 +72,11 @@ export default {
       })
     }
   },
+  head () {
+    return {
+      title: 'Icons list - nuxt-svg-sprite'
+    }
+  },
   computed: {
     filteredSprites () {
       return this.sprites
@@ -89,11 +94,6 @@ export default {
       el.setSelectionRange(0, 99999)
       document.execCommand('copy')
       this.onClick(`Icon "${e.target.value}" copied to clipboard`)
-    }
-  },
-  head () {
-    return {
-      title: 'Icons list - nuxt-svg-sprite'
     }
   }
 }

@@ -1,4 +1,4 @@
-import IconsPage from '../lib/pages/icons-list.vue'
+import IconsPage from '../components/icons-list.vue'
 
 export default {
   title: 'Modules/Svg Sprite',

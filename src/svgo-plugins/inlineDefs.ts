@@ -1,23 +1,9 @@
-'use strict'
-
 /**
  * @author marinewater
  * https://github.com/svg/svgo/pull/976
  */
 
 const JSAPI = require('svgo/lib/svgo/jsAPI.js')
-
-exports.type = 'full'
-exports.active = true
-exports.description = 'inlines svg definitions'
-
-/**
- * plugin options
- * @typedef {{onlyUnique: boolean}} Params
- */
-exports.params = {
-  onlyUnique: false
-}
 
 /**
  * replaces use tag with the corresponding definitions
@@ -26,7 +12,7 @@ exports.params = {
  * @param {Params} params
  * @returns {Object}
  */
-exports.fn = function (document, params) {
+function inlineDefs (document, params) {
   const defs = document.querySelector('defs')
   const uses = document.querySelectorAll('use')
 
@@ -66,7 +52,7 @@ exports.fn = function (document, params) {
     }
 
     for (const key in uses[i].attrs) {
-      if (uses[i].attrs.hasOwnProperty(key) && key !== 'x' && key !== 'y' && key !== 'xlink:href' && key !== 'href') {
+      if (Object.prototype.hasOwnProperty.call(uses[i].attrs, key) && key !== 'x' && key !== 'y' && key !== 'xlink:href' && key !== 'href') {
         def.addAttr(uses[i].attrs[key])
       }
     }
@@ -92,7 +78,7 @@ exports.fn = function (document, params) {
 
   if (params.onlyUnique === false) {
     for (const element in useCount) {
-      if (useCount.hasOwnProperty(element) && useCount[element] > 1) {
+      if (Object.prototype.hasOwnProperty.call(useCount, element) && useCount[element] > 1) {
         const tags = document.querySelectorAll(element)
         for (let j = 0; j < tags.length; j++) {
           tags[j].removeAttr('id')
@@ -132,7 +118,7 @@ function _countUses (elements) {
     }
     const href = hrefItem.value
 
-    if (result.hasOwnProperty(href)) {
+    if (Object.prototype.hasOwnProperty.call(result, href)) {
       result[href]++
     } else {
       result[href] = 1
@@ -150,7 +136,7 @@ function _countUses (elements) {
  * @returns {Object}
  * @private
  */
-function _replaceElement (oldElement, newElement) {
+function _replaceElement (oldElement, newElement = null) {
   const elementIndex = _getElementIndex(oldElement)
 
   if (newElement) {
@@ -211,4 +197,19 @@ function _findById (element, id) {
   }
 
   return null
+}
+
+export default {
+  type: 'full',
+  active: true,
+  description: 'inlines svg definitions',
+
+  /**
+ * plugin options
+ * @typedef {{onlyUnique: boolean}} Params
+ */
+  params: {
+    onlyUnique: false
+  },
+  fn: inlineDefs
 }

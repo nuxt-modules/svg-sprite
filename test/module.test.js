@@ -1,27 +1,21 @@
-const { Nuxt } = require('nuxt-edge')
-const config = require('../demo/nuxt.config')
-const url = path => `http://localhost:3000${path}`
-
-let nuxt
-beforeAll(async () => {
-  nuxt = new Nuxt(config)
-  await nuxt.listen(3000)
-}, 60000)
-
-afterAll(async () => {
-  await nuxt.close()
-})
+import { setupTest, createPage, url } from '@nuxt/test-utils'
 
 describe('Render module', () => {
-  beforeEach(async () => {
-    await page.goto(url('/'))
+  setupTest({
+    fixture: '../playground',
+    configFile: 'nuxt.config.ts',
+    server: true,
+    browser: true
   })
+  let page
   let hrefs = []
 
   test('all svg files sould be exist', async () => {
+    page = await createPage()
+    await page.goto(url('/'))
     hrefs = await page.evaluate(() => {
       const elements = document.querySelectorAll('use')
-      return Array.from(elements).map(el => el.getAttribute('xlink:href'))
+      return Array.from(elements).map(el => el.getAttribute('href'))
     })
     const paths = hrefs.map(path => path.split('#')[0])
     const sprites = Array.from(new Set(paths))
@@ -33,10 +27,11 @@ describe('Render module', () => {
   })
 
   test('all icon should be rendered and have width/height greater than zero', async () => {
+    await page.goto(url('/'))
     for (const href of hrefs) {
       const box = await page.evaluate((href) => {
         const elements = Array.from(document.querySelectorAll('use'))
-          .filter(el => el.getAttribute('xlink:href') === href)
+          .filter(el => el.getAttribute('href') === href)
         if (elements.length === 0) {
           return null
         }
@@ -51,17 +46,12 @@ describe('Render module', () => {
       expect(box.height).toBeGreaterThan(0)
     }
   })
-})
-
-describe('Inline Definitions', () => {
-  beforeEach(async () => {
-    await page.goto(url('/empty-defs'))
-  })
 
   test('<defs> should not have any content', async () => {
+    await page.goto(url('/empty-defs'))
     const spritePath = await page.evaluate(() => {
       const element = document.querySelector('.add-icon use')
-      return element.getAttribute('xlink:href')
+      return element.getAttribute('href')
     })
 
     await page.goto(url(spritePath))
