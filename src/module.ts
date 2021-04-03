@@ -12,6 +12,7 @@ const DEFAULTS = {
   elementClass: 'icon',
   spriteClassPrefix: 'sprite-',
   publicPath: null,
+  outputPath: null,
   iconsPath: '/_icons'
 }
 
@@ -124,6 +125,9 @@ function extendBuild (config, options) {
   const fileLoaderOptions: any = {}
   if (options.publicPath) {
     fileLoaderOptions.publicPath = options.publicPath
+  }
+  if (options.outputPath) {
+    fileLoaderOptions.outputPath = options.outputPath
   }
 
   // add file-loader only to sprite output folder
