@@ -42,7 +42,7 @@
     "mkdist": "latest",
     "nuxt-edge": "^2.16.0-26930917.f08f4efc",
     "playwright": "^1.9.2",
-    "siroc": "latest",
+    "siroc": "^0.16.0",
     "standard-version": "latest",
     "ts-loader": "latest",
     "typescript": "latest"
