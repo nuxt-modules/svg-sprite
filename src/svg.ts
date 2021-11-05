@@ -70,7 +70,7 @@ export default class SVGManager extends Hookable {
         hasDefaultSprite = true
       }
       const stat = await fs.lstat(source)
-      if (stat.isDirectory()) {
+      if (stat.isDirectory() || stat.isSymbolicLink()) {
         await this.createSprite(file, source)
       }
     }
