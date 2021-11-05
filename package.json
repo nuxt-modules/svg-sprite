@@ -33,7 +33,7 @@
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
-    "@nuxtjs/eslint-config-typescript": "^6.0.1",
+    "@nuxtjs/eslint-config-typescript": "^7.0.2",
     "@types/jest": "latest",
     "@vue/test-utils": "latest",
     "babel-eslint": "^10.1.0",
