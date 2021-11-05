@@ -11,9 +11,12 @@ const DEFAULTS = {
   svgoConfig: null,
   elementClass: 'icon',
   spriteClassPrefix: 'sprite-',
-  publicPath: null,
-  outputPath: null,
-  iconsPath: '/_icons'
+  iconsPath: '/_icons',
+  loaderOptions: {
+    publicPath: null,
+    outputPath: null,
+    name: '[name].[contenthash:6].[ext]'
+  }
 }
 
 let svgManager
@@ -122,12 +125,9 @@ function extendBuild (config, options) {
     }
   })
 
-  const fileLoaderOptions: any = {}
+  const fileLoaderOptions: any = options.loaderOptions
   if (options.publicPath) {
     fileLoaderOptions.publicPath = options.publicPath
-  }
-  if (options.outputPath) {
-    fileLoaderOptions.outputPath = options.outputPath
   }
 
   // add file-loader only to sprite output folder
