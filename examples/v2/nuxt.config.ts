@@ -10,7 +10,7 @@ export default {
     '@nuxt/typescript-build'
   ],
   modules: [
-    '../../src'
+    '../../src/index.ts'
   ],
   svgSprite: {
 

@@ -9,6 +9,6 @@ export default defineNuxtConfig({
     ]
   },
   modules: [
-    '../../src'
+    '../../src/index.ts'
   ]
 })

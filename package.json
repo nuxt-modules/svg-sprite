@@ -5,8 +5,14 @@
   "repository": "nuxt-community/svg-sprite-module",
   "license": "MIT",
   "sideEffects": false,
-  "main": "dist/module.js",
-  "types": "dist/types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
@@ -16,7 +22,7 @@
     "lint": "eslint --ext .ts --ext .vue .",
     "prepublishOnly": "yarn build",
     "release": "yarn test && standard-version && git push --follow-tags && npm publish",
-    "test": "yarn lint && yarn jest"
+    "test": "yarn jest test/module.test.js"
   },
   "dependencies": {
     "chalk": "^4.1.2",

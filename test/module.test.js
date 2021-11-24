@@ -2,7 +2,7 @@ import { setupTest, createPage, url } from '@nuxt/test-utils'
 
 describe('Render module', () => {
   setupTest({
-    fixture: '../playground',
+    fixture: '../examples/v2',
     configFile: 'nuxt.config.ts',
     server: true,
     browser: true
