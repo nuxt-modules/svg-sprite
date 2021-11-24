@@ -5,9 +5,6 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "types": ["node", "jest"],
-    "paths": {
-      "~image/*": ["src/runtime/*"],
-      "~image": ["src/runtime"]
-    }
+    "paths": {}
   }
 }

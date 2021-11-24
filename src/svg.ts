@@ -6,7 +6,7 @@ import removeAttrs from 'svgo/plugins/removeAttrs'
 import removeDimensions from 'svgo/plugins/removeDimensions'
 import removeViewBox from 'svgo/plugins/removeViewBox'
 import inlineStyles from 'svgo/plugins/inlineStyles'
-import Hookable from 'hookable'
+import { Hookable } from 'hookable'
 import { SVGSprite, SVGSymbol } from './types'
 
 import inlineDefs from './svgo-plugins/inlineDefs'

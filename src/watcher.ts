@@ -1,11 +1,11 @@
 import { sep } from 'path'
-import chokidar from 'chokidar'
+import { watch } from 'chokidar'
 import chalk from 'chalk'
 import { generateName, logger } from './utils'
 
 export default class Watcher {
   constructor (svgManager) {
-    const filesWatcher = chokidar.watch(svgManager.input, {
+    const filesWatcher = watch(svgManager.input, {
       ignoreInitial: true
     })
 
