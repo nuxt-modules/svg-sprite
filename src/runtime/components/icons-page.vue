@@ -10,7 +10,7 @@
         </h2>
         <div
           v-for="symbol in sprite.symbols"
-          :key="symbol.path"
+          :key="symbol.key"
           class="_icon-preview"
         >
           <div
@@ -18,8 +18,8 @@
           >
             <div class="_icon-svg">
               <svg-icon
-                :name="symbol.path"
-                :title="symbol.path"
+                :name="symbol.key"
+                :title="symbol.key"
                 class="icon"
                 :width="size + 'px'"
                 :height="size + 'px'"
@@ -32,7 +32,7 @@
               class="_icon-name-input"
               type="text"
               readonly
-              :value="symbol.path"
+              :value="symbol.key"
               @click="copy"
             >
           </div>
@@ -42,60 +42,41 @@
   </div>
 </template>
 
-<script>
-import sprites from '~svgsprite/sprites.json'
+<script setup lang="ts">
+import { icons } from '#svg-sprite-icons'
 
-export default {
-  layout: 'svg-sprite',
-  props: {
-    size: {
-      type: Number,
-      default: 60
-    },
-    onClick: {
-      type: Function,
-      default: () => () => {}
-    }
+const props = defineProps({
+  size: {
+    type: Number,
+    default: 60
   },
-  data () {
-    return {
-      query: '',
-      sprites: sprites.map((sprite) => {
-        const namespace = sprite.defaultSprite ? '' : `${sprite.name}/`
-        return {
-          name: sprite.name,
-          symbols: sprite.symbols.map(symbol => ({
-            name: symbol,
-            path: `${namespace}${symbol}`
-          }))
-        }
-      })
-    }
-  },
-  head () {
-    return {
-      title: 'Icons list - nuxt-svg-sprite'
-    }
-  },
-  computed: {
-    filteredSprites () {
-      return this.sprites
-        .map(sprite => ({
-          ...sprite,
-          symbols: sprite.symbols.filter(s => s.path.match(this.query))
-        }))
-        .filter(sprite => sprite.symbols.length)
-    }
-  },
-  methods: {
-    copy (e) {
-      const el = e.target
-      el.select()
-      el.setSelectionRange(0, 99999)
-      document.execCommand('copy')
-      this.onClick(`Icon "${e.target.value}" copied to clipboard`)
-    }
+  onClick: {
+    type: Function,
+    default: () => () => {}
   }
+})
+
+const useNuxtMeta = typeof useNuxt2Meta === 'function' ? useNuxt2Meta : useMeta
+useNuxtMeta({ title: 'Icons list - @nuxt/svg-sprite' })
+
+const query = ref('')
+const filteredSprites = computed(() => icons
+  .map(sprite => ({ ...sprite, symbols: sprite.symbols.filter(s => s.key.match(query.value)) }))
+  .filter(sprite => sprite.symbols.length)
+)
+
+const copy = (e) => {
+  const el = e.target
+  el.select()
+  el.setSelectionRange(0, 99999)
+  document.execCommand('copy')
+  props.onClick(`Icon "${e.target.value}" copied to clipboard`)
+}
+</script>
+
+<script lang="ts">
+export default {
+  layout: 'svg-sprite'
 }
 </script>
 

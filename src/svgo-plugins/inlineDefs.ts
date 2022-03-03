@@ -3,7 +3,8 @@
  * https://github.com/svg/svgo/pull/976
  */
 
-const JSAPI = require('svgo/lib/svgo/jsAPI.js')
+import type { Plugin } from 'svgo'
+import JSAPI from 'svgo/lib/svgo/jsAPI.js'
 
 /**
  * replaces use tag with the corresponding definitions
@@ -99,7 +100,7 @@ function inlineDefs (document, params) {
  * @private
  */
 function _removeDefs (document, params) {
-  if (params.onlyUnique === false || document.querySelector('defs').content.length === 0) {
+  if (params.onlyUnique === false || document.querySelector('defs').children.length === 0) {
     _replaceElement(document.querySelector('defs'))
   }
 }
@@ -163,7 +164,7 @@ function _getElementIndex (element) {
     local: 'data-defs-index'
   })
 
-  const index = element.parentNode.content.findIndex(function (contentElement) {
+  const index = element.parentNode.children.findIndex(function (contentElement) {
     return contentElement.hasAttr('data-defs-index', 'true')
   })
 
@@ -187,9 +188,9 @@ function _findById (element, id) {
     return element
   }
 
-  if (element.content) {
-    for (let i = 0; i < element.content.length; i++) {
-      const result = _findById(element.content[i], id)
+  if (element.children) {
+    for (let i = 0; i < element.children.length; i++) {
+      const result = _findById(element.children[i], id)
       if (result !== null) {
         return result
       }
@@ -200,6 +201,7 @@ function _findById (element, id) {
 }
 
 export default {
+  name: 'inlineDefs',
   type: 'full',
   active: true,
   description: 'inlines svg definitions',
@@ -212,4 +214,4 @@ export default {
     onlyUnique: false
   },
   fn: inlineDefs
-}
+} as Plugin

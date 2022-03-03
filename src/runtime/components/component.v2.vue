@@ -1,12 +1,12 @@
 <template>
-  <svg :view-box="viewBox" :class="svgClass">
+  <svg :view-box="viewBox" :class="icon.class">
     <title v-if="title">{{ title }}</title>
     <desc v-if="desc">{{ desc }}</desc>
     <use :href="icon.url" />
   </svg>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   props: {
     name: {
@@ -36,17 +36,13 @@ export default {
       icon: {
         sprite: '',
         icon: '',
-        url: ''
+        url: '',
+        class: ''
       }
     }
   },
   async fetch () {
-    this.icon = await this.$svgSprite.getIcon(this.name)
-  },
-  computed: {
-    svgClass () {
-      return `${this.$svgSprite.spriteClass} ${this.$svgSprite.spriteClassPrefix}${this.icon.sprite}`
-    }
+    this.icon = await useSprite(this.name)
   }
 }
 </script>
