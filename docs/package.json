@@ -1,0 +1,18 @@
+{
+    "name": "nuxt-svg-sprite-docs",
+    "version": "1.0.0",
+    "description": "Easy way to use and optimize svg files in Nuxt.js",
+    "repository": "nuxt-community/svg-sprite-module",
+    "license": "MIT",
+    "scripts": {
+      "dev": "nuxi dev",
+      "build": "nuxi build",
+      "generate": "nuxi build",
+      "preview": "nuxi preview"
+    },
+    "devDependencies": {
+      "@docus/docs-theme": "npm:@docus/docs-theme-edge@latest",
+      "@docus/github": "npm:@docus/github-edge@latest",
+      "nuxt": "^3.0.0-rc.6"
+    }
+  }

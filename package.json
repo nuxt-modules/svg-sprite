@@ -1,7 +1,7 @@
 {
   "name": "@nuxtjs/svg-sprite",
   "version": "1.0.0-beta.2",
-  "description": "Optimized and Easy way to use svg files in Nuxt.js",
+  "description": "Easy way to use and optimize svg files in Nuxt.js",
   "repository": "nuxt-community/svg-sprite-module",
   "license": "MIT",
   "exports": {
@@ -18,7 +18,9 @@
   "scripts": {
     "build": "nuxt-module-build",
     "dev": "nuxi dev playground",
+    "dev:docs": "nuxi dev docs",
     "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
     "lint": "eslint --ext .ts --ext .vue .",
     "prepublishOnly": "yarn build",
     "release": "yarn test && standard-version && git push --follow-tags && npm publish",
@@ -27,18 +29,17 @@
   },
   "dependencies": {
     "@nuxt/kit": "npm:@nuxt/kit-edge@latest",
-    "svgo": "^2.8.0",
-    "unstorage": "^0.3.3"
+    "svgo": "^2.8.0"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^0.1.7",
     "@nuxt/test-utils": "npm:@nuxt/test-utils-edge@latest",
-    "@nuxtjs/eslint-config-typescript": "^7.0.2",
-    "@types/svgo": "^2.6.1",
-    "eslint": "^8.3.0",
-    "nuxt3": "latest",
-    "playwright": "^1.16.3",
+    "@nuxtjs/eslint-config-typescript": "latest",
+    "@types/svgo": "^2.6.3",
+    "eslint": "^8.19.0",
+    "nuxt": "npm:nuxt3@latest",
+    "playwright": "^1.23.3",
     "standard-version": "latest",
-    "vitest": "^0.5.9"
+    "vitest": "^0.18.0"
   }
 }

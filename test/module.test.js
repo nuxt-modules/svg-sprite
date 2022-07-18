@@ -52,14 +52,14 @@ describe('Render module', async () => {
     page = await createPage()
     await page.goto(url('/empty-defs'))
 
-    const content = await page.content()
-    expect(content).toMatch(/<defs>[^\w0-9]*<\/defs>/)
-
     const spritePath = await page.evaluate(() => {
       const element = document.querySelector('.add-icon use')
       return element.getAttribute('href')
     })
 
     await page.goto(url(spritePath))
+    const content = await page.content()
+
+    expect(content).toContain('<defs/>')
   })
 })
