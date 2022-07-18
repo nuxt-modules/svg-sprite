@@ -18,7 +18,7 @@ export const useSprite = async (name: string) => {
   /**
    * Find sprite file name after nuxt build
    */
-  const spriteFile = await sprites[sprite]()
+  const spriteFile = sprites[sprite] ? await sprites[sprite]() : ''
 
   return {
     sprite,
