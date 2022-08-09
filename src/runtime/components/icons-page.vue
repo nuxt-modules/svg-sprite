@@ -45,6 +45,10 @@
 <script setup lang="ts">
 import { icons } from '#svg-sprite-icons'
 
+definePageMeta({
+  layout: 'svg-sprite'
+})
+
 const props = defineProps({
   size: {
     type: Number,
@@ -71,12 +75,6 @@ const copy = (e) => {
   el.setSelectionRange(0, 99999)
   document.execCommand('copy')
   props.onClick(`Icon "${e.target.value}" copied to clipboard`)
-}
-</script>
-
-<script lang="ts">
-export default {
-  layout: 'svg-sprite'
 }
 </script>
 

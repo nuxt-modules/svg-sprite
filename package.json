@@ -24,6 +24,7 @@
     "lint": "eslint --ext .ts --ext .vue .",
     "prepublishOnly": "yarn build",
     "release": "yarn test && standard-version && git push --follow-tags && npm publish",
+    "prepare": "yarn dev:prepare",
     "prepack": "nuxt-module-build",
     "test": "vitest"
   },
