@@ -40,7 +40,7 @@
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
-    "@nuxtjs/eslint-config-typescript": "^7.0.2",
+    "@nuxtjs/eslint-config-typescript": "^11.0.0",
     "@types/jest": "latest",
     "@vue/test-utils": "latest",
     "babel-eslint": "^10.1.0",
