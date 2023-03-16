@@ -1,4 +1,4 @@
-import type { OptimizedSvg, OptimizeOptions } from 'svgo'
+import type { Config } from 'svgo'
 import { optimize } from 'svgo'
 
 export interface SVG {
@@ -8,20 +8,20 @@ export interface SVG {
   defs?: string
 }
 
-export function useSvgFile (file: string) {
+export function useSvgFile (file: string, { defaultSprite = 'icons' } = {}) {
   if (file.startsWith('svg:')) {
     file = file.substring(4)
   }
   const paths = file.split(':')
-  const name = paths.pop().replace(/\.svg$/, '').toLocaleLowerCase().replace(/[^a-z0-9-]/g, '-')
+  const name = paths.pop()!.replace(/\.svg$/, '').toLocaleLowerCase().replace(/[^a-z0-9-:]/g, '-')
   const sprite = paths.join('-')
   return {
     name,
-    sprite
+    sprite: sprite || defaultSprite
   }
 }
 
-export function createSpritesManager (svgoOptions: OptimizeOptions = {}) {
+export function createSpritesManager (svgoOptions: Config = {}) {
   const sprites = {} as Record<string, Array<SVG>>
 
   const addSvg = async (svg: SVG) => {
@@ -87,16 +87,16 @@ function extractDefs (svg: SVG) {
   }
 }
 
-async function optimizeSVG (svg: SVG, optimizeOptions: OptimizeOptions = {}) {
+async function optimizeSVG (svg: SVG, optimizeOptions: Config = {}) {
   const plugins: any[] = optimizeOptions.plugins || []
   const presetDefault = plugins.find(p => p.name === 'preset-default')
 
-  presetDefault.params.overrides.cleanupIDs = {
-    ...presetDefault.params.overrides.cleanupIDs,
+  presetDefault.params.overrides.cleanupIds = {
+    ...presetDefault.params.overrides.cleanupIds,
     prefix: `${svg.name}-`
   }
 
-  const $data = await optimize(svg.content, optimizeOptions) as OptimizedSvg
+  const $data = await optimize(svg.content, optimizeOptions)
 
   return {
     ...svg,

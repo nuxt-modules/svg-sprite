@@ -17,6 +17,11 @@ export const useSprite = async (name: string) => {
     sprite = defaultSprite
   }
 
+  if (icon.match(/\w:/)) {
+    const [collection, _icon] = icon.split(':')
+    await $fetch('/api/svg-sprite/generate', { params: { sprite, icon: _icon, collection } })
+  }
+
   /**
    * Find sprite file name after nuxt build
    */

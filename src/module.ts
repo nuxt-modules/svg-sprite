@@ -1,3 +1,4 @@
+import fsp from 'fs/promises'
 import {
   resolveAlias,
   defineNuxtModule,
@@ -5,20 +6,23 @@ import {
   addTemplate,
   createResolver,
   addComponent,
-  addAutoImport,
-  useLogger
+  addImports,
+  useLogger,
+  addLayout,
+  addServerHandler,
+  updateTemplates
 } from '@nuxt/kit'
-import type { OptimizeOptions } from 'svgo'
+import type { Config as SVGOConfig } from 'svgo'
 import inlineDefs from './svgo-plugins/inlineDefs'
 import { iconsTemplate, spritesTemplate } from './template'
 import { createSpritesManager, useSvgFile } from './utils'
 
 export interface ModuleOptions {
-  input?: string
-  output?: string
+  input: string
+  output: string
   iconsPath: string
-  defaultSprite?: string
-  optimizeOptions?: OptimizeOptions
+  defaultSprite: string
+  optimizeOptions: SVGOConfig
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -26,7 +30,7 @@ export default defineNuxtModule<ModuleOptions>({
     name: '@nuxtjs/svg-sprite',
     configKey: 'svgSprite',
     compatibility: {
-      bridge: true
+      nuxt: '>=3.0.0'
     }
   },
   defaults: {
@@ -44,12 +48,12 @@ export default defineNuxtModule<ModuleOptions>({
               // Make all styles inline By definition, a defs sprite is not usable as a CSS sprite
               inlineStyles: {
                 onlyMatchedOnce: false
-              },
-              cleanupIDs: {}
+              }
             }
           }
         },
-        { name: 'removeXMLNS', active: true },
+        { name: 'cleanupIds', params: {} },
+        { name: 'removeXMLNS' },
         // Disable removeViewBox plugin and enable removeDimensions
         { name: 'removeDimensions' },
         // Enable removeAttrs plugin, Remove id attribute to prevent conflict with our id
@@ -66,12 +70,19 @@ export default defineNuxtModule<ModuleOptions>({
   async setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
     const resolveRuntimeModule = (path: string) => resolveModule(path, { paths: resolve('./runtime') })
+    const inputDir = resolveAlias(options.input, nuxt.options.alias)
     const outDir = resolveAlias(options.output, nuxt.options.alias)
 
     const logger = useLogger('svg-sprite')
 
-    await addComponent({ name: 'SvgIcon', filePath: resolve('./runtime/components/component.vue'), global: true })
-    await addAutoImport({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite') })
+    await addComponent({ name: 'SvgIcon', filePath: resolve('./runtime/components/svg-icon.vue'), global: true })
+    if (nuxt.options.dev) {
+      nuxt.options.runtimeConfig.svgSprite = { inputDir, defaultSprite: options.defaultSprite }
+      addServerHandler({ route: '/api/svg-sprite/generate', handler: resolve('./runtime/server/generate.ts') })
+      await addImports({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite.dev') })
+    } else {
+      await addImports({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite') })
+    }
 
     const { sprites, addSvg, removeSvg, generateSprite } = createSpritesManager(options.optimizeOptions)
     nuxt.options.alias['#svg-sprite'] = addTemplate({
@@ -86,7 +97,10 @@ export default defineNuxtModule<ModuleOptions>({
     // Register icons page
     if (options.iconsPath) {
       // Add layout
-      nuxt.options.layouts['svg-sprite'] = resolve('runtime/components/layout.vue')
+      addLayout({
+        filename: 'svg-sprite.vue',
+        src: resolve('./runtime/components/layout.vue')
+      })
 
       // Add template
       nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
@@ -99,38 +113,43 @@ export default defineNuxtModule<ModuleOptions>({
       }).dst
 
       // Register route
-      nuxt.hook('build:extendRoutes', (routes) => {
+      nuxt.hook('pages:extend', (routes) => {
         routes.unshift({
           name: 'icons-page',
           path: options.iconsPath,
-          component: resolve('runtime/components/icons-page.vue')
+          file: resolve('runtime/components/icons-page.vue')
         })
       })
     }
 
     nuxt.hook('nitro:init', async (nitro) => {
       const input = options.input.replace(/~|\.\//, 'root').replace(/\//g, ':')
-      const output = options.output.replace(/~|\.\//, 'root').replace(/\//g, ':')
+      const output = options.output.replace(/~\/|\.\//, '')
 
       // Make sure output directory exists and contains .gitignore to ignore sprite files
       if (!await nitro.storage.hasItem(`${output}:.gitignore`)) {
-        await nitro.storage.setItem(`${output}:.gitignore`, '*')
+        // await nitro.storage.setItem(`${output}:.gitignore`, '*')
+        await fsp.writeFile(`${nuxt.options.rootDir}/${output}/.gitignore`, '*')
       }
 
-      const svgs = await nitro.storage.getKeys(input).then(keys => keys.map(key => key.substring(input.length + 1)))
+      const svgsFiles = await nitro.storage.getKeys(input)
       await Promise.all(
-        svgs.map(async (file) => {
-          const { name, sprite } = useSvgFile(file)
+        svgsFiles.map(async (file: string) => {
+          file = file.substring(input.length + 1)
+          const { name, sprite } = useSvgFile(file, { defaultSprite: options.defaultSprite })
 
           return addSvg({
             name,
-            sprite: sprite || options.defaultSprite,
+            sprite,
             content: await nitro.storage.getItem(`${input}:${file}`) as string
           })
         })
       )
 
-      const writeSprite = (sprite: string) => nitro.storage.setItem(`${output}:${sprite}.svg`, generateSprite(sprite))
+      const writeSprite = async (sprite: string) => {
+        await fsp.writeFile(`${nuxt.options.rootDir}/${output}/${sprite}.svg`, generateSprite(sprite))
+        // return nitro.storage.setItem(`${output}:${sprite}.svg`, generateSprite(sprite))
+      }
       await Promise.all(Object.keys(sprites).map(writeSprite))
 
       // Rest of the code is only for development
@@ -138,26 +157,30 @@ export default defineNuxtModule<ModuleOptions>({
         return
       }
 
-      const handleFileChange = async (event, file) => {
+      const handleFileChange = async (event: string, file: string) => {
         if (!file.startsWith(input)) {
           return
         }
 
         file = file.substring(input.length + 1)
-        const { name, sprite } = useSvgFile(file)
+        const { name, sprite } = useSvgFile(file, { defaultSprite: options.defaultSprite })
 
         if (event === 'update') {
           logger.log(`${file} changed`)
           await addSvg({
             name,
-            sprite: sprite || options.defaultSprite,
+            sprite,
             content: await nitro.storage.getItem(`${input}:${file}`) as string
           })
         } else if (event === 'remove') {
           logger.log(`${file} removed`)
           removeSvg(sprite, name)
         }
-        await writeSprite(sprite || options.defaultSprite)
+        await writeSprite(sprite)
+
+        updateTemplates({
+          filter: template => template.filename?.startsWith('svg-sprite')
+        })
       }
       nitro.storage.watch((event, file) => handleFileChange(event, file))
     })

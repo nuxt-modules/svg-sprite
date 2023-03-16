@@ -6,7 +6,8 @@
   </svg>
 </template>
 
-<script setup lang="ts">
+<script setup>
+
 const props = defineProps({
   name: {
     type: String,
@@ -37,4 +38,8 @@ const icon = ref({
 })
 
 icon.value = await useSprite(props.name)
+
+watch(() => props.name, async (name) => {
+  icon.value = await useSprite(name)
+})
 </script>

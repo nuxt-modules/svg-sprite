@@ -42,7 +42,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup>
 import { icons } from '#svg-sprite-icons'
 
 definePageMeta({
@@ -60,8 +60,7 @@ const props = defineProps({
   }
 })
 
-const useNuxtMeta = typeof useNuxt2Meta === 'function' ? useNuxt2Meta : useMeta
-useNuxtMeta({ title: 'Icons list - @nuxt/svg-sprite' })
+useHead({ title: 'Icons list - @nuxt/svg-sprite' })
 
 const query = ref('')
 const filteredSprites = computed(() => icons

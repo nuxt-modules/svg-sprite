@@ -1,3 +1,4 @@
+// @ts-ignore
 import IconsPage from '../components/icons-page.vue'
 
 export default {
