@@ -43,7 +43,7 @@
     "@nuxtjs/eslint-config-typescript": "^7.0.2",
     "@types/jest": "latest",
     "@vue/test-utils": "latest",
-    "babel-eslint": "^10.1.0",
+    "@babel/eslint-parser": "^7.11.0",
     "eslint": "^8.3.0",
     "jest": "latest",
     "nuxt-edge": "latest",
