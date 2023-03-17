@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <svg-icon name="nuxtjs" title="Nuxt.js" :desc="aboutNuxt" width="150px" height="150px" />
+      <svg-icon name="nuxt" title="Nuxt.js" :desc="aboutNuxt" width="150px" height="150px" />
     </div>
     <div>
       <svg-icon name="dreams/zantagle-moon" title="Zantagle Moon" width="150px" height="150px" />
@@ -14,9 +14,7 @@
       <svg-icon name="love/Love" title="Love" width="150px" height="150px" />
     </div>
     <div class="copyright">
-      photos by <a href="https://lovesvg.com" rel="noopener" target="_blank">
-        lovesvg
-      </a>
+      photos by <a href="https://lovesvg.com" rel="noopener" target="_blank">lovesvg</a>
     </div>
   </div>
 </template>
@@ -27,9 +25,9 @@ const aboutNuxt = 'Nuxt.js presets all the configuration needed to make your dev
 
 <style>
 body {
-    text-align: center;
+  text-align: center;
 }
 .copyright {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 </style>
