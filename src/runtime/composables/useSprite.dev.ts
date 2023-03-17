@@ -1,5 +1,7 @@
 // @ts-ignore
 import { sprites, defaultSprite, spriteClass, spriteClassPrefix } from '#svg-sprite'
+// @ts-ignore
+import { icons } from '#svg-sprite-icons'
 
 function generateName (name: string) {
   return name
@@ -17,7 +19,9 @@ export const useSprite = async (name: string) => {
     sprite = defaultSprite
   }
 
-  if (icon.match(/\w:/)) {
+  const generatedName = generateName(icon)
+
+  if (!icons.includes(`${sprite}/${generatedName}`) && icon.match(/\w:/)) {
     const [collection, _icon] = icon.split(':')
     await $fetch('/api/svg-sprite/generate', { params: { sprite, icon: _icon, collection } })
   }
@@ -30,7 +34,7 @@ export const useSprite = async (name: string) => {
   return {
     sprite,
     icon,
-    url: spriteFile + `#${generateName(icon)}`,
+    url: spriteFile + `#${generatedName}`,
     class: `${spriteClass} ${spriteClassPrefix}${sprite}`
   }
 }

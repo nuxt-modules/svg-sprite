@@ -4,7 +4,7 @@
       <input v-model="query" class="_icon-search" placeholder="Search Icons">
     </div>
     <div>
-      <div v-for="sprite in filteredSprites" :key="sprite.name" class="_icon-preview-wrapper">
+      <div v-for="sprite of filteredSprites" :key="sprite.name" class="_icon-preview-wrapper">
         <h2 class="_icon-sprite-title">
           {{ sprite.name }}
         </h2>
@@ -43,11 +43,9 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue'
 import { icons } from '#svg-sprite-icons'
-
-definePageMeta({
-  layout: 'svg-sprite'
-})
+import { useHead } from '#imports'
 
 const props = defineProps({
   size: {
@@ -60,13 +58,25 @@ const props = defineProps({
   }
 })
 
-useHead({ title: 'Icons list - @nuxt/svg-sprite' })
+useHead({ title: 'Icons list - @nuxtjs/svg-sprite' })
 
 const query = ref('')
-const filteredSprites = computed(() => icons
-  .map(sprite => ({ ...sprite, symbols: sprite.symbols.filter(s => s.key.match(query.value)) }))
-  .filter(sprite => sprite.symbols.length)
-)
+const filteredSprites = computed(() => {
+  return icons
+    .filter(icon => query.value ? icon.match(query.value || '') : true)
+    .reduce((acc, icon) => {
+      const [sprite, name] = icon.split('/')
+      acc[sprite] = acc[sprite] || {
+        name: sprite,
+        symbols: []
+      }
+      acc[sprite].symbols.push({
+        name,
+        key: icon
+      })
+      return acc
+    }, {})
+})
 
 const copy = (e) => {
   const el = e.target

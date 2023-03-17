@@ -16,7 +16,8 @@ export default eventHandler(async (event) => {
   }
   try {
     const data = await $fetch<any>(`https://api.iconify.design/${collection}.json?icons=${icon}`)
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 ${data.width} ${data.height}">\n${data.icons[icon as string].body}\n</svg>`
+    const fetchedIcon = data.icons[icon as string]
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${data.width}" height="${data.height}" viewBox="0 0 ${fetchedIcon.width || data.width} ${fetchedIcon.height || data.height}">\n${fetchedIcon.body}\n</svg>`
 
     await fsp.mkdir(joinURL(inputDir, _sprite), { recursive: true })
     await fsp.writeFile(file, svg)

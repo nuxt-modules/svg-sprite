@@ -78,7 +78,7 @@ export default defineNuxtModule<ModuleOptions>({
     await addComponent({ name: 'SvgIcon', filePath: resolve('./runtime/components/svg-icon.vue'), global: true })
     if (nuxt.options.dev) {
       nuxt.options.runtimeConfig.svgSprite = { inputDir, defaultSprite: options.defaultSprite }
-      addServerHandler({ route: '/api/svg-sprite/generate', handler: resolve('./runtime/server/generate.ts') })
+      addServerHandler({ route: '/api/svg-sprite/generate', handler: resolve('./runtime/server/generate') })
       await addImports({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite.dev') })
     } else {
       await addImports({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite') })
@@ -87,6 +87,7 @@ export default defineNuxtModule<ModuleOptions>({
     const { sprites, addSvg, removeSvg, generateSprite } = createSpritesManager(options.optimizeOptions)
     nuxt.options.alias['#svg-sprite'] = addTemplate({
       ...spritesTemplate,
+      write: true,
       options: {
         sprites,
         outDir,
@@ -105,6 +106,7 @@ export default defineNuxtModule<ModuleOptions>({
       // Add template
       nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
         ...iconsTemplate,
+        write: true,
         options: {
           sprites,
           outDir,
@@ -117,7 +119,10 @@ export default defineNuxtModule<ModuleOptions>({
         routes.unshift({
           name: 'icons-page',
           path: options.iconsPath,
-          file: resolve('runtime/components/icons-page.vue')
+          file: resolve('runtime/components/icons-page.vue'),
+          meta: {
+            layout: 'svg-sprite'
+          }
         })
       })
     }
@@ -129,6 +134,7 @@ export default defineNuxtModule<ModuleOptions>({
       // Make sure output directory exists and contains .gitignore to ignore sprite files
       if (!await nitro.storage.hasItem(`${output}:.gitignore`)) {
         // await nitro.storage.setItem(`${output}:.gitignore`, '*')
+        await fsp.mkdir(`${nuxt.options.rootDir}/${output}`, { recursive: true })
         await fsp.writeFile(`${nuxt.options.rootDir}/${output}/.gitignore`, '*')
       }
 
@@ -178,7 +184,7 @@ export default defineNuxtModule<ModuleOptions>({
         }
         await writeSprite(sprite)
 
-        updateTemplates({
+        await updateTemplates({
           filter: template => template.filename?.startsWith('svg-sprite')
         })
       }
