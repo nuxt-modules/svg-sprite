@@ -36,7 +36,7 @@
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "latest",
     "@nuxt/bridge": "npm:@nuxt/bridge-edge",
-    "@nuxt/test-utils": "^0.2.2",
+    "@nuxt/test-utils": "^3.3.2",
     "@nuxt/types": "latest",
     "@nuxt/typescript-build": "latest",
     "@nuxt/typescript-runtime": "latest",
