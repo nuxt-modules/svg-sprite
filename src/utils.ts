@@ -1,52 +1,105 @@
-import consola from 'consola'
-import fs from 'fs-extra'
-import { name, version } from '../package.json'
+import type { Config } from 'svgo'
+import { optimize } from 'svgo'
 
-export const pkg = { name, version }
-
-export const logger = consola.withScope('@nuxtjs/svg-sprite')
-
-export function generateName (name) {
-  return name
-    .toLowerCase()
-    .replace(/\.svg$/, '')
-    .replace(/[^a-z0-9-]/g, '-')
+export interface SVG {
+  name: string
+  sprite: string
+  content: string
+  defs?: string
 }
 
-export async function writeSVG (path, content) {
-  const result = await fs.writeFile(path, content, { flag: 'w' })
-  return result
+export function useSvgFile (file: string, { defaultSprite = 'icons' } = {}) {
+  if (file.startsWith('svg:')) {
+    file = file.substring(4)
+  }
+  const paths = file.split(':')
+  const name = paths.pop()!.replace(/\.svg$/, '').toLocaleLowerCase().replace(/[^a-z0-9-:]/g, '-')
+  const sprite = paths.join('-')
+  return {
+    name,
+    sprite: sprite || defaultSprite
+  }
 }
 
-export async function readSVG (path) {
-  const result = await fs.readFile(path)
-  return result
+export function createSpritesManager (svgoOptions: Config = {}) {
+  const sprites = {} as Record<string, Array<SVG>>
+
+  const addSvg = async (svg: SVG) => {
+    svg = await optimizeSVG(svg, svgoOptions)
+      .then(extractDefs)
+      .then(convertToSymbol)
+
+    sprites[svg.sprite] = (sprites[svg.sprite] || []).filter(s => s.name !== svg.name)
+    sprites[svg.sprite].push(svg)
+  }
+
+  const removeSvg = (sprite: string, name: string) => {
+    sprites[sprite] = sprites[sprite] || []
+    sprites[sprite] = sprites[sprite].filter(s => s.name !== name)
+
+    if (sprites[sprite].length === 0) {
+      delete sprites[sprite]
+    }
+  }
+
+  const removeSprite = (sprite: string) => {
+    delete sprites[sprite]
+  }
+
+  const generateSprite = (sprite: string) => {
+    if (!sprites[sprite]) {
+      return ''
+    }
+    const defs = sprites[sprite].map(svg => svg.defs || '').join('')
+    const contents = sprites[sprite].map(svg => svg.content)
+    return [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+      `<defs>${defs}</defs>`,
+      ...contents,
+      '</svg>'
+    ].join('\n')
+  }
+
+  return {
+    sprites,
+    addSvg,
+    removeSvg,
+    removeSprite,
+    generateSprite
+  }
 }
 
-export function convertToSymbol (name, content) {
-  const $data = content
-    .replace('<svg', `<symbol id="i-${name}"`)
-    .replace('</svg>', '</symbol>')
-    .replace(/<defs>(.+)<\/defs>/, '')
-
-  return $data
+function convertToSymbol (svg: SVG) {
+  return {
+    ...svg,
+    content: svg.content
+      .replace('<svg', `<symbol id="${svg.name}"`)
+      .replace('</svg>', '</symbol>')
+      .replace(/<defs>(.+)<\/defs>/, '')
+  }
 }
 
-export function extractDefs (content) {
-  const $data = content
-    .match(/<defs>(.+)<\/defs>/)
-
-  return $data ? $data[1] : ''
+function extractDefs (svg: SVG) {
+  return {
+    ...svg,
+    defs: svg.content.match(/<defs>(.+)<\/defs>/)?.[1] || ''
+  }
 }
 
-export function isSVGFile (file) {
-  return file.match(/.*\.svg$/)
-}
+async function optimizeSVG (svg: SVG, optimizeOptions: Config = {}) {
+  const plugins: any[] = optimizeOptions.plugins || []
+  const presetDefault = plugins.find(p => p.name === 'preset-default')
 
-export function wrap (content, defs) {
-  return '<?xml version="1.0" encoding="UTF-8"?>\n' +
-    '<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n' +
-    '<defs>\n' + defs + '\n</defs>\n' +
-    content +
-    '\n</svg>'
+  presetDefault.params.overrides.cleanupIds = {
+    ...presetDefault.params.overrides.cleanupIds,
+    prefix: `${svg.name}-`
+  }
+
+  const $data = await optimize(svg.content, optimizeOptions)
+
+  return {
+    ...svg,
+    content: $data.data
+  }
 }

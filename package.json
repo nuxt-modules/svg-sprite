@@ -1,59 +1,68 @@
 {
-  "name": "@nuxtjs/svg-sprite",
-  "version": "1.0.0-beta.2",
-  "description": "Optimized and Easy way to use svg files in Nuxt.js",
-  "repository": "nuxt-community/svg-sprite-module",
-  "license": "MIT",
-  "sideEffects": false,
-  "exports": {
-    ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+    "name": "@nuxtjs/svg-sprite",
+    "version": "1.0.0-beta.5",
+    "description": "Easy way to use and optimize svg files in Nuxt.js",
+    "repository": "nuxt-community/svg-sprite-module",
+    "license": "MIT",
+    "exports": {
+        ".": {
+            "import": "./dist/module.mjs",
+            "require": "./dist/module.cjs"
+        }
+    },
+    "main": "./dist/module.cjs",
+    "module": "./dist/module.mjs",
+    "types": "./dist/types.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "nuxt-module-build",
+        "dev": "nuxi dev playground",
+        "dev:docs": "nuxi dev docs",
+        "dev:build": "nuxi build playground",
+        "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
+        "lint": "eslint --ext .ts --ext .vue .",
+        "prepublishOnly": "npm run build",
+        "release": "npm run test && release-it",
+        "prepare": "npm run dev:prepare",
+        "prepack": "nuxt-module-build",
+        "test": "vitest run"
+    },
+    "dependencies": {
+        "@nuxt/kit": "^3.3.2",
+        "svgo": "^3.0.2"
+    },
+    "devDependencies": {
+        "@nuxt/module-builder": "^0.2.1",
+        "@nuxt/test-utils": "latest",
+        "@nuxtjs/eslint-config-typescript": "latest",
+        "@types/svgo": "^2.6.4",
+        "eslint": "^8.37.0",
+        "nuxt": "^3.3.2",
+        "playwright": "^1.32.1",
+        "release-it": "^15.9.3",
+        "vitest": "^0.29.8"
+    },
+    "packageManager": "pnpm@7.29.1",
+    "pnpm": {
+        "peerDependencyRules": {
+            "allowedVersions": {
+                "vue": "^3.2.45"
+            },
+            "ignoreMissing": [
+                "webpack",
+                "vue"
+            ]
+        }
+    },
+    "release-it": {
+        "git": {
+            "commitMessage": "chore(release): release v${version}"
+        },
+        "github": {
+            "release": true,
+            "releaseName": "v${version}"
+        }
     }
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "build": "unbuild",
-    "dev": "yarn nuxt examples/v2",
-    "lint": "eslint --ext .ts --ext .vue .",
-    "prepublishOnly": "yarn build",
-    "release": "yarn test && standard-version && git push --follow-tags && npm publish",
-    "test": "yarn jest test/module.test.js"
-  },
-  "dependencies": {
-    "chalk": "^4.1.2",
-    "chokidar": "^3.5.2",
-    "consola": "^2.15.3",
-    "fs-extra": "^10.0.0",
-    "hookable": "^5.0.0",
-    "svgo": "^1.3.2"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.16.4",
-    "@babel/preset-typescript": "latest",
-    "@nuxt/bridge": "npm:@nuxt/bridge-edge",
-    "@nuxt/test-utils": "^0.2.2",
-    "@nuxt/types": "latest",
-    "@nuxt/typescript-build": "latest",
-    "@nuxt/typescript-runtime": "latest",
-    "@nuxtjs/eslint-config-typescript": "^7.0.2",
-    "@types/jest": "latest",
-    "@vue/test-utils": "latest",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^8.3.0",
-    "jest": "latest",
-    "nuxt-edge": "latest",
-    "playwright": "^1.16.3",
-    "standard-version": "latest",
-    "ts-loader": "^8.3.0",
-    "typescript": "latest",
-    "unbuild": "^0.5.13"
-  },
-  "publishConfig": {
-    "access": "public"
-  }
 }

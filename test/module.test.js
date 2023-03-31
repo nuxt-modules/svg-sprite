@@ -1,9 +1,10 @@
-import { setupTest, createPage, url } from '@nuxt/test-utils'
+import { fileURLToPath } from 'url'
+import { setup, createPage, url } from '@nuxt/test-utils'
+import { describe, test, expect } from 'vitest'
 
-describe('Render module', () => {
-  setupTest({
-    fixture: '../examples/v2',
-    configFile: 'nuxt.config.ts',
+describe('Render module', async () => {
+  await setup({
+    rootDir: fileURLToPath(new URL('../playground', import.meta.url)),
     server: true,
     browser: true
   })
@@ -48,16 +49,17 @@ describe('Render module', () => {
   })
 
   test('<defs> should not have any content', async () => {
+    page = await createPage()
     await page.goto(url('/empty-defs'))
+
     const spritePath = await page.evaluate(() => {
       const element = document.querySelector('.add-icon use')
       return element.getAttribute('href')
     })
 
     await page.goto(url(spritePath))
-
     const content = await page.content()
 
-    expect(content).toMatch(/<defs>[^\w0-9]*<\/defs>/)
+    expect(content).toContain('<defs/>')
   })
 })
