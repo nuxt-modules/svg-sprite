@@ -15,7 +15,7 @@
     "@nuxthq/studio": "^0.10.0",
     "nuxt": "^3.3.2"
   },
-  "packageManager": "pnpm@7.29.1",
+  "packageManager": "pnpm@8.1.0",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
