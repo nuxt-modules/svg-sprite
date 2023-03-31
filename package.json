@@ -1,6 +1,6 @@
 {
     "name": "@nuxtjs/svg-sprite",
-    "version": "1.0.0-beta.5",
+    "version": "1.0.0",
     "description": "Easy way to use and optimize svg files in Nuxt.js",
     "repository": "nuxt-community/svg-sprite-module",
     "license": "MIT",
