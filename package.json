@@ -11,6 +11,7 @@
         }
     },
     "main": "./dist/module.cjs",
+    "module": "./dist/module.mjs",
     "types": "./dist/types.d.ts",
     "files": [
         "dist"
@@ -29,19 +30,19 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "@nuxt/kit": "^3.2.3",
+        "@nuxt/kit": "^3.3.2",
         "svgo": "^3.0.2"
     },
     "devDependencies": {
         "@nuxt/module-builder": "^0.2.1",
-        "@nuxt/test-utils": "npm:@nuxt/test-utils-edge@latest",
+        "@nuxt/test-utils": "latest",
         "@nuxtjs/eslint-config-typescript": "latest",
         "@types/svgo": "^2.6.4",
-        "eslint": "^8.36.0",
-        "nuxt": "^3.2.3",
-        "playwright": "^1.31.2",
-        "release-it": "^15.8.0",
-        "vitest": "^0.29.2"
+        "eslint": "^8.37.0",
+        "nuxt": "^3.3.2",
+        "playwright": "^1.32.1",
+        "release-it": "^15.9.3",
+        "vitest": "^0.29.8"
     },
     "packageManager": "pnpm@7.29.1",
     "pnpm": {

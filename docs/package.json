@@ -11,9 +11,9 @@
     "preview": "nuxi preview"
   },
   "dependencies": {
-    "@nuxt-themes/docus": "^1.9.9",
-    "@nuxthq/studio": "^0.8.5",
-    "nuxt": "^3.3.1"
+    "@nuxt-themes/docus": "^1.10.1",
+    "@nuxthq/studio": "^0.10.0",
+    "nuxt": "^3.3.2"
   },
   "packageManager": "pnpm@7.29.1",
   "pnpm": {
