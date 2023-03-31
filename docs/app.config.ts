@@ -2,7 +2,7 @@ export default defineAppConfig({
   docus: {
     title: 'Nuxt SVG Sprite',
     layout: 'default',
-    url: 'https://color-mode.nuxtjs.org',
+    url: 'https://github.com/nuxt-community/svg-sprite-module',
     description: 'Optimized and Easy way to use SVG files in Nuxt.js',
     socials: {
       twitter: 'nuxt_js',
