@@ -129,7 +129,7 @@ export default defineNuxtModule<ModuleOptions>({
 
     nuxt.hook('nitro:init', async (nitro) => {
       const input = `root/${inputDir.replace(nuxt.options.rootDir, '')}`.replace(/\//g, ':')
-      const output = outDir.replace(nuxt.options.rootDir, "~")
+      const output = outDir.replace(nuxt.options.rootDir, '~')
 
       // Make sure output directory exists and contains .gitignore to ignore sprite files
       if (!await nitro.storage.hasItem(`${output}:.gitignore`)) {
