@@ -128,14 +128,14 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     nuxt.hook('nitro:init', async (nitro) => {
-      const input = options.input.replace(/~|\.\//, 'root').replace(/\//g, ':')
-      const output = options.output.replace(/~\/|\.\//, '')
+      const input = `root/${inputDir.replace(nuxt.options.rootDir, '')}`.replace(/\//g, ':')
+      const output = outDir.replace(nuxt.options.rootDir, '~')
 
       // Make sure output directory exists and contains .gitignore to ignore sprite files
       if (!await nitro.storage.hasItem(`${output}:.gitignore`)) {
         // await nitro.storage.setItem(`${output}:.gitignore`, '*')
-        await fsp.mkdir(`${nuxt.options.rootDir}/${output}`, { recursive: true })
-        await fsp.writeFile(`${nuxt.options.rootDir}/${output}/.gitignore`, '*')
+        await fsp.mkdir(`${outDir}`, { recursive: true })
+        await fsp.writeFile(`${outDir}/.gitignore`, '*')
       }
 
       const svgsFiles = await nitro.storage.getKeys(input)
@@ -153,7 +153,7 @@ export default defineNuxtModule<ModuleOptions>({
       )
 
       const writeSprite = async (sprite: string) => {
-        await fsp.writeFile(`${nuxt.options.rootDir}/${output}/${sprite}.svg`, generateSprite(sprite))
+        await fsp.writeFile(`${outDir}/${sprite}.svg`, generateSprite(sprite))
         // return nitro.storage.setItem(`${output}:${sprite}.svg`, generateSprite(sprite))
       }
       await Promise.all(Object.keys(sprites).map(writeSprite))
