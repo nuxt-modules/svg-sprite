@@ -67,11 +67,11 @@ Module default options:
 | iconsPath | `_icons` | Custom path for icons list page (In order to disable this page, pass `false` or `null` to this option) |
 | svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md) |
 
-You can update them with the `svgSprite` option in `nuxt.config.js`:
+You can update them with the `svgSprite` option in `nuxt.config`:
 
 ```js
-export default {
-  buildModules: ['@nuxtjs/svg-sprite'],
+export default defineNuxtConfig({
+  modules: ['@nuxtjs/svg-sprite'],
   svgSprite: {
     input: '~/assets/svg/'
   }
