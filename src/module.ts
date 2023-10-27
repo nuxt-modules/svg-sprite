@@ -2,7 +2,6 @@ import fsp from 'fs/promises'
 import {
   resolveAlias,
   defineNuxtModule,
-  resolveModule,
   addTemplate,
   createResolver,
   addComponent,
@@ -69,7 +68,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   async setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
-    const resolveRuntimeModule = (path: string) => resolveModule(path, { paths: resolve('./runtime') })
+    const resolveRuntimeModule = (path: string) => resolve('./runtime', path)
     const inputDir = resolveAlias(options.input, nuxt.options.alias)
     const outDir = resolveAlias(options.output, nuxt.options.alias)
 
