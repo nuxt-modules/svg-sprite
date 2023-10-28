@@ -9,11 +9,12 @@ import {
   useLogger,
   addLayout,
   addServerHandler,
-  updateTemplates
+  updateTemplates,
+  addTypeTemplate
 } from '@nuxt/kit'
 import type { Config as SVGOConfig } from 'svgo'
 import inlineDefs from './svgo-plugins/inlineDefs'
-import { iconsTemplate, spritesTemplate } from './template'
+import { iconCollectionDefinitionsTemplate, iconCollectionTemplate, iconsTemplate, spritesTemplate } from './template'
 import { createSpritesManager, useSvgFile } from './utils'
 
 export interface ModuleOptions {
@@ -86,6 +87,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     const { sprites, addSvg, removeSvg, generateSprite } = createSpritesManager(options.optimizeOptions)
+
     nuxt.options.alias['#svg-sprite'] = addTemplate({
       ...spritesTemplate,
       write: true,
@@ -93,6 +95,21 @@ export default defineNuxtModule<ModuleOptions>({
         sprites,
         outDir,
         defaultSprite: options.defaultSprite
+      }
+    }).dst
+
+    addTypeTemplate({
+      ...iconCollectionDefinitionsTemplate,
+      write: true,
+      options: {
+        sprites
+      }
+    })
+    nuxt.options.alias['#sprite'] = addTemplate({
+      ...iconCollectionTemplate,
+      write: true,
+      options: {
+        sprites
       }
     }).dst
 
