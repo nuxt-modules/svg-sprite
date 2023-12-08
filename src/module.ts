@@ -141,7 +141,7 @@ export default defineNuxtModule<ModuleOptions>({
       const svgsFiles = await nitro.storage.getKeys(input)
       await Promise.all(
         svgsFiles.map(async (file: string) => {
-          file = file.substring(input.length + 1)
+          file = file.replace(input, '')
           const { name, sprite } = useSvgFile(file, { defaultSprite: options.defaultSprite })
 
           return addSvg({
@@ -168,7 +168,7 @@ export default defineNuxtModule<ModuleOptions>({
           return
         }
 
-        file = file.substring(input.length + 1)
+        file = file.replace(input, '')
         const { name, sprite } = useSvgFile(file, { defaultSprite: options.defaultSprite })
 
         if (event === 'update') {
