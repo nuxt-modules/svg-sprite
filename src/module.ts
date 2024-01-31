@@ -19,7 +19,8 @@ import { createSpritesManager, useSvgFile } from './utils'
 export interface ModuleOptions {
   input: string
   output: string
-  iconsPath: string
+  pageIcons: boolean,
+  iconsPath: string,
   defaultSprite: string
   optimizeOptions: SVGOConfig
 }
@@ -36,6 +37,7 @@ export default defineNuxtModule<ModuleOptions>({
     input: '~/assets/sprite/svg',
     output: '~/assets/sprite/gen',
     defaultSprite: 'icons',
+    pageIcons: true,
     iconsPath: '/_icons',
     optimizeOptions: {
       plugins: [
@@ -94,24 +96,25 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }).dst
 
+    nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
+      ...iconsTemplate,
+      write: true,
+      options: {
+        sprites,
+        outDir,
+        defaultSprite: options.defaultSprite
+      }
+    }).dst
+
     // Register icons page
-    if (options.iconsPath) {
+    if (options.iconsPath && options.pageIcons) {
       // Add layout
+
       addLayout({
         filename: 'svg-sprite.vue',
         src: resolve('./runtime/components/layout.vue')
       })
-
       // Add template
-      nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
-        ...iconsTemplate,
-        write: true,
-        options: {
-          sprites,
-          outDir,
-          defaultSprite: options.defaultSprite
-        }
-      }).dst
 
       // Register route
       nuxt.hook('pages:extend', (routes) => {
