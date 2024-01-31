@@ -103,3 +103,16 @@ async function optimizeSVG (svg: SVG, optimizeOptions: Config = {}) {
     content: $data.data
   }
 }
+
+export function pascalCase (string: string): string {
+  return `${string}`
+    .toLowerCase()
+    .replace(/[-_]+/g, ' ')
+    .replace(/[^\w\s]/g, '')
+    .replace(
+      /\s+(.)(\w*)/g,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ($1, $2, $3) => `${$2.toUpperCase() + $3}`
+    )
+    .replace(/\w/, s => s.toUpperCase())
+}

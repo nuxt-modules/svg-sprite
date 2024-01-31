@@ -2,7 +2,6 @@ import fsp from 'fs/promises'
 import {
   resolveAlias,
   defineNuxtModule,
-  resolveModule,
   addTemplate,
   createResolver,
   addComponent,
@@ -10,17 +9,19 @@ import {
   useLogger,
   addLayout,
   addServerHandler,
-  updateTemplates
+  updateTemplates,
+  addTypeTemplate
 } from '@nuxt/kit'
 import type { Config as SVGOConfig } from 'svgo'
 import inlineDefs from './svgo-plugins/inlineDefs'
-import { iconsTemplate, spritesTemplate } from './template'
+import { iconCollectionDefinitionsTemplate, iconCollectionTemplate, iconsTemplate, spritesTemplate } from './template'
 import { createSpritesManager, useSvgFile } from './utils'
 
 export interface ModuleOptions {
   input: string
   output: string
-  iconsPath: string
+  pageIcons: boolean,
+  iconsPath: string,
   defaultSprite: string
   optimizeOptions: SVGOConfig
 }
@@ -37,6 +38,7 @@ export default defineNuxtModule<ModuleOptions>({
     input: '~/assets/sprite/svg',
     output: '~/assets/sprite/gen',
     defaultSprite: 'icons',
+    pageIcons: true,
     iconsPath: '/_icons',
     optimizeOptions: {
       plugins: [
@@ -69,7 +71,7 @@ export default defineNuxtModule<ModuleOptions>({
   },
   async setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
-    const resolveRuntimeModule = (path: string) => resolveModule(path, { paths: resolve('./runtime') })
+    const resolveRuntimeModule = (path: string) => resolve('./runtime', path)
     const inputDir = resolveAlias(options.input, nuxt.options.alias)
     const outDir = resolveAlias(options.output, nuxt.options.alias)
 
@@ -85,6 +87,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     const { sprites, addSvg, removeSvg, generateSprite } = createSpritesManager(options.optimizeOptions)
+
     nuxt.options.alias['#svg-sprite'] = addTemplate({
       ...spritesTemplate,
       write: true,
@@ -95,34 +98,47 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }).dst
 
+    addTypeTemplate({
+      ...iconCollectionDefinitionsTemplate,
+      write: true,
+      options: {
+        sprites
+      }
+    })
+    nuxt.options.alias['#sprite'] = addTemplate({
+      ...iconCollectionTemplate,
+      write: true,
+      options: {
+        sprites
+      }
+    }).dst
+
+    nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
+      ...iconsTemplate,
+      write: true,
+      options: {
+        sprites,
+        outDir,
+        defaultSprite: options.defaultSprite
+      }
+    }).dst
+
     // Register icons page
-    if (options.iconsPath) {
+    if (options.iconsPath && options.pageIcons) {
       // Add layout
+
       addLayout({
         filename: 'svg-sprite.vue',
         src: resolve('./runtime/components/layout.vue')
       })
-
       // Add template
-      nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
-        ...iconsTemplate,
-        write: true,
-        options: {
-          sprites,
-          outDir,
-          defaultSprite: options.defaultSprite
-        }
-      }).dst
 
       // Register route
       nuxt.hook('pages:extend', (routes) => {
         routes.unshift({
           name: 'icons-page',
           path: options.iconsPath,
-          file: resolve('runtime/components/icons-page.vue'),
-          meta: {
-            layout: 'svg-sprite'
-          }
+          file: resolve('runtime/components/icons-page.vue')
         })
       })
     }

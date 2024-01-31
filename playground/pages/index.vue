@@ -9,9 +9,9 @@
       <svg-icon name="dreams/Beautiful_Little_Girl_7881" title="Beautiful Little Girl" width="150px" height="150px" />
     </div>
     <div>
-      <svg-icon name="love/Bee Mine" title="Bee Mine" width="150px" height="150px" />
-      <svg-icon name="love/Hugs And Kisses" title="Hugs And Kisses" width="150px" height="150px" />
-      <svg-icon name="love/Love" title="Love" width="150px" height="150px" />
+      <svg-icon :name="Love.Love" title="Bee Mine" width="150px" height="150px" />
+      <svg-icon :name="Love.HugsAndKisses" title="Hugs And Kisses" width="150px" height="150px" />
+      <svg-icon :name="Love.Love" title="Love" width="150px" height="150px" />
     </div>
     <div class="copyright">
       photos by <a href="https://lovesvg.com" rel="noopener" target="_blank">lovesvg</a>
@@ -20,6 +20,9 @@
 </template>
 
 <script setup lang="ts">
+
+import { Love } from '#sprite'
+
 const aboutNuxt = 'Nuxt.js presets all the configuration needed to make your development of a Vue.js application enjoyable.'
 </script>
 

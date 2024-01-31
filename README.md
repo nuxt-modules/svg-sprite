@@ -56,16 +56,17 @@ Module create a page that list all of icons for you, by default you can see this
 Module default options:
 
 
-| Option | Default | Description |
-| ------ | ------- | ----------- |
-| input | `~/assets/sprite/svg` | Directory of original svg files |
-| output | `~/assets/sprite/gen` | Directory to store generated sprites |
-| defaultSprite | `icons` | Name of default sprite (default sprite consist of all svgs that place directly inside `input` directory) |
-| elementClass | `icon` | global class of all `<svg-icon>` instances |
-| spriteClassPrefix | `sprite-` | Prefix of sprite specific classes |
-| publicPath | `null` | Specifies a custom public path for the sprites |
-| iconsPath | `_icons` | Custom path for icons list page (In order to disable this page, pass `false` or `null` to this option) |
-| svgoConfig | `null` | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md) |
+| Option            | Default               | Description                                                                                              |
+|-------------------|-----------------------|----------------------------------------------------------------------------------------------------------|
+| input             | `~/assets/sprite/svg` | Directory of original svg files                                                                          |
+| output            | `~/assets/sprite/gen` | Directory to store generated sprites                                                                     |
+| defaultSprite     | `icons`               | Name of default sprite (default sprite consist of all svgs that place directly inside `input` directory) |
+| elementClass      | `icon`                | global class of all `<svg-icon>` instances                                                               |
+| spriteClassPrefix | `sprite-`             | Prefix of sprite specific classes                                                                        |
+| publicPath        | `null`                | Specifies a custom public path for the sprites                                                           |
+| iconsPath         | `_icons`              | Custom path for icons list page (In order to disable this page)                                          |
+| pageIcons         | `_false`              | Showing a page with all the icons                                                                        |
+| svgoConfig        | `null`                | Custom config object for SVGO, [How to customize SVGO config](/docs/svgo-config.md)                      |
 
 You can update them with the `svgSprite` option in `nuxt.config`:
 
