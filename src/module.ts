@@ -118,10 +118,7 @@ export default defineNuxtModule<ModuleOptions>({
         routes.unshift({
           name: 'icons-page',
           path: options.iconsPath,
-          file: resolve('runtime/components/icons-page.vue'),
-          meta: {
-            layout: 'svg-sprite'
-          }
+          file: resolve('runtime/components/icons-page.vue')
         })
       })
     }

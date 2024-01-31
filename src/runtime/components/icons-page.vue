@@ -47,6 +47,9 @@ import { ref, computed } from 'vue'
 import { icons } from '#svg-sprite-icons'
 import { useHead } from '#imports'
 
+definePageMeta({
+  layout: 'svg-sprite'
+})
 const props = defineProps({
   size: {
     type: Number,
