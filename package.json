@@ -1,5 +1,5 @@
 {
-    "name": "@nuxtjs/svg-sprite",
+    "name": "@gvade/nuxt3-svg-sprite",
     "version": "1.0.0",
     "description": "Easy way to use and optimize svg files in Nuxt.js",
     "repository": "nuxt-community/svg-sprite-module",
@@ -29,18 +29,18 @@
         "test": "vitest run"
     },
     "dependencies": {
-        "@nuxt/kit": "^3.3.2",
-        "svgo": "^3.0.2"
+        "@nuxt/kit": "^3.10.0",
+        "svgo": "^3.2.0"
     },
     "devDependencies": {
         "@nuxt/module-builder": "^0.2.1",
         "@nuxt/test-utils": "latest",
         "@nuxtjs/eslint-config-typescript": "latest",
         "@types/svgo": "^2.6.4",
-        "eslint": "^8.37.0",
-        "nuxt": "^3.3.2",
-        "playwright": "^1.32.1",
-        "release-it": "^15.9.3",
+        "eslint": "^8.56.0",
+        "nuxt": "^3.10.0",
+        "playwright": "^1.41.2",
+        "release-it": "^15.11.0",
         "vitest": "^0.29.8"
     },
     "packageManager": "pnpm@8.1.0",

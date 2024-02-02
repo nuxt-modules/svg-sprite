@@ -95,6 +95,18 @@ export default defineNuxtModule<ModuleOptions>({
       }
     }).dst
 
+    // Add template
+    // Fix: we need this alias in the svg-icon component independently on the iconsPath setting
+    nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
+      ...iconsTemplate,
+      write: true,
+      options: {
+        sprites,
+        outDir,
+        defaultSprite: options.defaultSprite
+      }
+    }).dst
+
     // Register icons page
     if (options.iconsPath) {
       // Add layout
@@ -102,17 +114,6 @@ export default defineNuxtModule<ModuleOptions>({
         filename: 'svg-sprite.vue',
         src: resolve('./runtime/components/layout.vue')
       })
-
-      // Add template
-      nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
-        ...iconsTemplate,
-        write: true,
-        options: {
-          sprites,
-          outDir,
-          defaultSprite: options.defaultSprite
-        }
-      }).dst
 
       // Register route
       nuxt.hook('pages:extend', (routes) => {
