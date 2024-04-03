@@ -16,9 +16,7 @@ Sprites help increase speed, maintain a consistent development workflow, and mak
 ## Installation
 
 ```bash
-yarn add @nuxtjs/svg-sprite
-# or
-npm i @nuxtjs/svg-sprite
+npx nuxi@latest module add svg-sprite
 ```
 
 ## Usage
