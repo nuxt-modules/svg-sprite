@@ -19,6 +19,7 @@ import { createSpritesManager, useSvgFile } from './utils'
 
 export interface ModuleOptions {
   input: string
+  inputs: string[]
   output: string
   iconsPath: string
   defaultSprite: string
@@ -36,6 +37,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     input: '~/assets/sprite/svg',
     output: '~/assets/sprite/gen',
+    inputs: [],
     defaultSprite: 'icons',
     iconsPath: '/_icons',
     optimizeOptions: {
@@ -71,13 +73,14 @@ export default defineNuxtModule<ModuleOptions>({
     const { resolve } = createResolver(import.meta.url)
     const resolveRuntimeModule = (path: string) => resolveModule(path, { paths: resolve('./runtime') })
     const inputDir = resolveAlias(options.input, nuxt.options.alias)
+    const inputsDir = options.inputs.map((input: string) => resolveAlias(input, nuxt.options.alias))
     const outDir = resolveAlias(options.output, nuxt.options.alias)
 
     const logger = useLogger('svg-sprite')
 
     await addComponent({ name: 'SvgIcon', filePath: resolve('./runtime/components/svg-icon.vue'), global: true })
     if (nuxt.options.dev) {
-      nuxt.options.runtimeConfig.svgSprite = { inputDir, defaultSprite: options.defaultSprite }
+      nuxt.options.runtimeConfig.svgSprite = { inputDir, inputsDir, defaultSprite: options.defaultSprite }
       addServerHandler({ route: '/api/svg-sprite/generate', handler: resolve('./runtime/server/generate') })
       await addImports({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite.dev') })
     } else {
@@ -128,7 +131,8 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     nuxt.hook('nitro:init', async (nitro) => {
-      const input = options.input.replace(/~|\.\//, 'root').replace(/\//g, ':')
+      const inputs = options.inputs.map((input: string) => input.replace(/~|\.\//, 'root').replace(/\//g, ':'))
+      inputs.push(options.input.replace(/~|\.\//, 'root').replace(/\//g, ':'))
       const output = options.output.replace(/~\/|\.\//, '')
 
       // Make sure output directory exists and contains .gitignore to ignore sprite files
@@ -138,19 +142,21 @@ export default defineNuxtModule<ModuleOptions>({
         await fsp.writeFile(`${nuxt.options.rootDir}/${output}/.gitignore`, '*')
       }
 
-      const svgsFiles = await nitro.storage.getKeys(input)
-      await Promise.all(
-        svgsFiles.map(async (file: string) => {
-          file = file.substring(input.length + 1)
-          const { name, sprite } = useSvgFile(file, { defaultSprite: options.defaultSprite })
+      for (const input of inputs) {
+        const svgsFiles = await nitro.storage.getKeys(input)
+        await Promise.all(
+          svgsFiles.map(async (file: string) => {
+            file = file.substring(input.length + 1)
+            const { name, sprite } = useSvgFile(file, { defaultSprite: options.defaultSprite })
 
-          return addSvg({
-            name,
-            sprite,
-            content: await nitro.storage.getItem(`${input}:${file}`) as string
+            return addSvg({
+              name,
+              sprite,
+              content: await nitro.storage.getItem(`${input}:${file}`) as string
+            })
           })
-        })
-      )
+        )
+      }
 
       const writeSprite = async (sprite: string) => {
         await fsp.writeFile(`${nuxt.options.rootDir}/${output}/${sprite}.svg`, generateSprite(sprite))
@@ -164,7 +170,14 @@ export default defineNuxtModule<ModuleOptions>({
       }
 
       const handleFileChange = async (event: string, file: string) => {
-        if (!file.startsWith(input)) {
+        const input = inputs.filter((_input) => {
+          if (file.startsWith(_input)) {
+            return true
+          }
+          return false
+        })[0]
+
+        if (!input) {
           return
         }
 
