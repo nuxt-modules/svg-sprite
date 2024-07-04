@@ -18,8 +18,7 @@ import { iconsTemplate, spritesTemplate } from './template'
 import { createSpritesManager, useSvgFile } from './utils'
 
 export interface ModuleOptions {
-  input: string
-  inputs: string[]
+  input: string | string[]
   output: string
   iconsPath: string
   defaultSprite: string
@@ -37,7 +36,6 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     input: '~/assets/sprite/svg',
     output: '~/assets/sprite/gen',
-    inputs: [],
     defaultSprite: 'icons',
     iconsPath: '/_icons',
     optimizeOptions: {
@@ -72,15 +70,17 @@ export default defineNuxtModule<ModuleOptions>({
   async setup (options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
     const resolveRuntimeModule = (path: string) => resolveModule(path, { paths: resolve('./runtime') })
-    const inputDir = resolveAlias(options.input, nuxt.options.alias)
-    const inputsDir = options.inputs.map((input: string) => resolveAlias(input, nuxt.options.alias))
+    const inputDir =
+      Array.isArray(options.input)
+        ? options.input.map((input: string) => resolveAlias(input, nuxt.options.alias))
+        : resolveAlias(options.input, nuxt.options.alias)
     const outDir = resolveAlias(options.output, nuxt.options.alias)
 
     const logger = useLogger('svg-sprite')
 
     await addComponent({ name: 'SvgIcon', filePath: resolve('./runtime/components/svg-icon.vue'), global: true })
     if (nuxt.options.dev) {
-      nuxt.options.runtimeConfig.svgSprite = { inputDir, inputsDir, defaultSprite: options.defaultSprite }
+      nuxt.options.runtimeConfig.svgSprite = { inputDir, defaultSprite: options.defaultSprite }
       addServerHandler({ route: '/api/svg-sprite/generate', handler: resolve('./runtime/server/generate') })
       await addImports({ name: 'useSprite', as: 'useSprite', from: resolveRuntimeModule('./composables/useSprite.dev') })
     } else {
@@ -131,8 +131,10 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     nuxt.hook('nitro:init', async (nitro) => {
-      const inputs = options.inputs.map((input: string) => input.replace(/~|\.\//, 'root').replace(/\//g, ':'))
-      inputs.push(options.input.replace(/~|\.\//, 'root').replace(/\//g, ':'))
+      const inputs =
+        Array.isArray(options.input)
+          ? options.input.map((input: string) => input.replace(/~|\.\//, 'root').replace(/\//g, ':'))
+          : [options.input.replace(/~|\.\//, 'root').replace(/\//g, ':')]
       const output = options.output.replace(/~\/|\.\//, '')
 
       // Make sure output directory exists and contains .gitignore to ignore sprite files

@@ -58,7 +58,7 @@ Module default options:
 
 | Option | Default | Description |
 | ------ | ------- | ----------- |
-| input | `~/assets/sprite/svg` | Directory of original svg files |
+| input | `~/assets/sprite/svg` | Directory of original svg files. Maybe `Array<string>` |
 | output | `~/assets/sprite/gen` | Directory to store generated sprites |
 | defaultSprite | `icons` | Name of default sprite (default sprite consist of all svgs that place directly inside `input` directory) |
 | elementClass | `icon` | global class of all `<svg-icon>` instances |
