@@ -8,8 +8,8 @@ export const spritesTemplate = {
       'export const sprites = {',
       imports,
       '}',
-      'export const spriteClass = "";\n',
-      'export const spriteClassPrefix = "";\n',
+      `export const spriteClass = "${options.elementClass}";\n`,
+      `export const spriteClassPrefix = "${options.spriteClassPrefix}";\n`,
       `export const defaultSprite = "${options.defaultSprite}";\n`
     ].join('\n')
   }

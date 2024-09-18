@@ -22,6 +22,8 @@ export interface ModuleOptions {
   output: string
   iconsPath: string
   defaultSprite: string
+  elementClass: string
+  spriteClassPrefix: string
   optimizeOptions: SVGOConfig
 }
 
@@ -38,6 +40,8 @@ export default defineNuxtModule<ModuleOptions>({
     output: '~/assets/sprite/gen',
     defaultSprite: 'icons',
     iconsPath: '/_icons',
+    elementClass: 'icon',
+    spriteClassPrefix: 'sprite-',
     optimizeOptions: {
       plugins: [
         {
@@ -91,6 +95,20 @@ export default defineNuxtModule<ModuleOptions>({
       options: {
         sprites,
         outDir,
+        defaultSprite: options.defaultSprite,
+        elementClass: options.elementClass,
+        spriteClassPrefix: options.spriteClassPrefix
+      }
+    }).dst
+
+    // Add template
+    // Fix: we need this alias in the svg-icon component independently on the iconsPath setting
+    nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
+      ...iconsTemplate,
+      write: true,
+      options: {
+        sprites,
+        outDir,
         defaultSprite: options.defaultSprite
       }
     }).dst
@@ -102,17 +120,6 @@ export default defineNuxtModule<ModuleOptions>({
         filename: 'svg-sprite.vue',
         src: resolve('./runtime/components/layout.vue')
       })
-
-      // Add template
-      nuxt.options.alias['#svg-sprite-icons'] = addTemplate({
-        ...iconsTemplate,
-        write: true,
-        options: {
-          sprites,
-          outDir,
-          defaultSprite: options.defaultSprite
-        }
-      }).dst
 
       // Register route
       nuxt.hook('pages:extend', (routes) => {
@@ -128,8 +135,9 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     nuxt.hook('nitro:init', async (nitro) => {
-      const input = options.input.replace(/~|\.\//, 'root').replace(/\//g, ':')
-      const output = options.output.replace(/~\/|\.\//, '')
+      // Support (fix) for default and custom nuxt aliases
+      const input = inputDir.replace(nitro.options.rootDir, '~').replace(/~|\.\//, 'root').replace(/\//g, ':');
+      const output = outDir.replace(nitro.options.rootDir, '').replace(/~\/|\.\//, '');
 
       // Make sure output directory exists and contains .gitignore to ignore sprite files
       if (!await nitro.storage.hasItem(`${output}:.gitignore`)) {

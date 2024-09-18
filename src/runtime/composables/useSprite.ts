@@ -1,7 +1,7 @@
 // @ts-ignore
-import { sprites, defaultSprite, spriteClass, spriteClassPrefix } from '#svg-sprite'
+import {sprites, defaultSprite, spriteClass, spriteClassPrefix} from '#svg-sprite'
 
-function generateName (name: string) {
+function generateName(name: string) {
   return name
     .toLowerCase()
     .replace(/\.svg$/, '')
