@@ -11,11 +11,11 @@
     "preview": "nuxi preview"
   },
   "dependencies": {
-    "@nuxt-themes/docus": "^1.10.1",
-    "@nuxthq/studio": "^0.10.0",
-    "nuxt": "^3.3.2"
+    "@nuxt-themes/docus": "^1.15.0",
+    "@nuxthq/studio": "^0.14.1",
+    "nuxt": "^3.13.2"
   },
-  "packageManager": "pnpm@8.1.0",
+  "packageManager": "pnpm@8.15.9",
   "pnpm": {
     "peerDependencyRules": {
       "allowedVersions": {
