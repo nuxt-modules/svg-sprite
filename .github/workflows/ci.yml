@@ -22,7 +22,7 @@ jobs:
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 7
+          version: 10.33.4
       - run: pnpm install
       - run: pnpm dev:prepare
       - run: pnpm lint
