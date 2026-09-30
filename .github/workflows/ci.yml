@@ -17,12 +17,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16'
-      - uses: pnpm/action-setup@v2.2.4
+          node-version: '16.20.2'
+      - uses: pnpm/action-setup@v2.4.1
         name: Install pnpm
         id: pnpm-install
         with:
-          version: 7
+          version: 7.33.7
       - run: pnpm install
       - run: pnpm dev:prepare
       - run: pnpm lint
